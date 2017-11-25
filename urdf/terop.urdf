@@ -22,7 +22,7 @@
         <box size="0.102 0.109 0.106" />
       </geometry>
       <material name="Grey">
-        <color rgba="0.20 0.20 0.20 1.0"/>
+        <color rgba="1.00 1.00 1.00 1.0"/>
       </material>
     </visual>
     <collision>
@@ -43,7 +43,7 @@
         <box size="0.045 0.08175 0.028652"/>
       </geometry>
       <material name="Grey">
-        <color rgba="0.20 0.20 0.20 1.0"/>
+        <color rgba="1.00 1.00 1.00 1.0"/>
       </material>
     </visual>
     <collision>
@@ -65,7 +65,7 @@
         <box size="0.001 0.001 0.001"/>
       </geometry>
       <material name="Grey">
-        <color rgba="0.20 0.20 0.20 1.0"/>
+        <color rgba="1.00 1.00 1.00 1.0"/>
       </material>
     </visual>
     <collision>
@@ -87,7 +87,7 @@
         <box size="0.125 0.035 0.045"/>
       </geometry>
       <material name="Grey">
-        <color rgba="0.20 0.20 0.20 1.0"/>
+        <color rgba="1.00 1.00 1.00 1.0"/>
       </material>
     </visual>
     <collision>
@@ -109,7 +109,7 @@
         <box size="0.130 0.035 0.045"/>
       </geometry>
       <material name="Grey">
-        <color rgba="0.20 0.20 0.20 1.0"/>
+        <color rgba="1.00 1.00 1.00 1.0"/>
       </material>
     </visual>
     <collision>
@@ -132,7 +132,7 @@
         <box size="0.028652 0.08175 0.045"/>
       </geometry>
       <material name="Grey">
-        <color rgba="0.20 0.20 0.20 1.0"/>
+        <color rgba="1.00 1.00 1.00 1.0"/>
       </material>
     </visual>
     <collision>
@@ -154,7 +154,7 @@
         <box size="0.008 0.066 0.104"/>
       </geometry>
       <material name="Grey">
-        <color rgba="0.20 0.20 0.20 1.0"/>
+        <color rgba="1.00 1.00 1.00 1.0"/>
       </material>
     </visual>
     <collision>
@@ -176,7 +176,7 @@
         <box size="0.045 0.08175 0.028652" />
       </geometry>
       <material name="Grey">
-        <color rgba="0.20 0.20 0.20 1.0"/>
+        <color rgba="1.00 1.00 1.00 1.0"/>
       </material>
     </visual>
     <collision>
@@ -198,7 +198,7 @@
         <box size="0.001 0.001 0.001"/>
       </geometry>
       <material name="Grey">
-        <color rgba="0.20 0.20 0.20 1.0"/>
+        <color rgba="1.00 1.00 1.00 1.0"/>
       </material>
     </visual>
     <collision>
@@ -221,7 +221,7 @@
         <box size="0.125 0.035 0.045"/>
       </geometry>
       <material name="Grey">
-        <color rgba="0.20 0.20 0.20 1.0"/>
+        <color rgba="1.00 1.00 1.00 1.0"/>
       </material>
     </visual>
     <collision>
@@ -244,7 +244,7 @@
         <box size="0.130 0.035 0.045"/>
       </geometry>
       <material name="Grey">
-        <color rgba="0.20 0.20 0.20 1.0"/>
+        <color rgba="1.00 1.00 1.00 1.0"/>
       </material>
     </visual>
     <collision>
@@ -268,7 +268,7 @@
         <box size="0.028652 0.08175 0.045"/>
       </geometry>
       <material name="Grey">
-        <color rgba="0.20 0.20 0.20 1.0"/>
+        <color rgba="1.00 1.00 1.00 1.0"/>
       </material>
     </visual>
     <collision>
@@ -291,7 +291,7 @@
         <box size="0.008 0.066 0.104"/>
       </geometry>
       <material name="Grey">
-        <color rgba="0.20 0.20 0.20 1.0"/>
+        <color rgba="1.00 1.00 1.00 1.0"/>
       </material>
     </visual>
     <collision>
