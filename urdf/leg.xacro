@@ -6,6 +6,7 @@
  <!--xacro:property name="body_height" value="0.106" /-->
  <!--xacro:property name="body_width" value="0.109" /-->
  <!--xacro:property name="body_large" value="0.102" /-->
+ <xacro:property name="M_PI" value="3.1415926535897931" />
 <xacro:property name="pelvis_height" value="0.028652" />
  <xacro:property name="pelvis_width" value="0.08175" />
  <xacro:property name="pelvis_large" value="0.045" />
@@ -147,9 +148,10 @@
     <child link="${side}_pelvis"/>
     <origin xyz="0 ${reflect*body_width/2} 0" rpy="0 0 0" />
     <axis xyz="0 0 1" />
-    <limit effort="10" velocity="5.6548668" lower="-2.6179939" upper="2.6179939" />
+    <limit effort="10" velocity="5.6548668" lower="${-75*M_PI/180}" upper="${45*M_PI/180}" />
   </joint>
-    <joint name="${side}_thigh_yaw_joint" type="revolute">
+  
+  <joint name="${side}_thigh_yaw_joint" type="revolute">
     <parent link="${side}_pelvis"/>
     <child link="${side}_thigh_yaw"/>
     <origin xyz="0 ${reflect*pelvis_width/2} ${-1*pelvis_height}" rpy="0 0 0" />
@@ -162,7 +164,7 @@
     <child link="${side}_thigh"/>
     <origin xyz="0 0 0" rpy="0 0 0" />
     <axis xyz="0 1 0" />
-    <limit effort="10" velocity="5.6548668" lower="-2.6179939" upper="2.6179939" />
+    <limit effort="10" velocity="5.6548668" lower="${-75*M_PI/180}" upper="${45*M_PI/180}"  />
   </joint>
 
   <joint name="${side}_tibia_joint" type="revolute">
@@ -170,7 +172,7 @@
     <child link="${side}_tibia"/>
     <origin xyz="0 0 ${-1*thigh_height}" rpy="0 0 0" />
     <axis xyz="0 1 0" />
-    <limit effort="10" velocity="5.6548668" lower="-2.6179939" upper="2.6179939" />
+    <limit effort="10" velocity="5.6548668" lower="${0*M_PI/180}" upper="${150*M_PI/180}" />
   </joint>
 
   <joint name="${side}_ankle_joint" type="revolute">
@@ -178,7 +180,7 @@
     <child link="${side}_ankle"/>
     <origin xyz="0 0 ${-1*tibia_height}" rpy="0 0 0" />
     <axis xyz="0 1 0" />
-    <limit effort="10" velocity="5.6548668" lower="-2.6179939" upper="2.6179939" />
+    <limit effort="10" velocity="5.6548668" lower="${-90*M_PI/180}" upper="${0*M_PI/180}" />
   </joint>
 
   <joint name="${side}_phalange_joint" type="revolute">
