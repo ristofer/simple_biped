@@ -6,14 +6,12 @@ joint_state_controller:
 l_leg_controller:
   type: effort_controllers/JointTrajectoryController
   joints:
-    - l_pelvis_joint
     - l_thigh_pitch_joint
     - l_thigh_yaw_joint
     - l_tibia_joint
     - l_ankle_joint
     - l_phalange_joint
   gains:
-    l_pelvis_joint: {p: 100.0, i: 10.0, d: 0.5, i_clamp: 0.0}
     l_thigh_pitch_joint: {p: 100.0, i: 10.0, d: 0.5, i_clamp: 0.0}
     l_thigh_yaw_joint:  {p: 100.0, i: 10.0, d: 0.5, i_clamp: 0.0}
     l_tibia_joint:   {p: 100.0, i: 10.0, d: 0.5, i_clamp: 0.0}
@@ -24,7 +22,6 @@ l_leg_controller:
   constraints:
     goal_time: 5.0
     stopped_velocity_tolerance: 1.0
-    l_pelvis_joint: {trajectory: 0.2, goal: 0.2}
     l_thigh_pitch_joint: {trajectory: 0.2, goal: 0.2}
     l_thigh_yaw_joint: {trajectory: 0.2, goal: 0.2}
     l_tibia_joint: {trajectory: 0.2, goal: 0.2}
@@ -39,14 +36,12 @@ l_leg_controller:
 r_leg_controller:
   type: effort_controllers/JointTrajectoryController
   joints:
-    - r_pelvis_joint
     - r_thigh_pitch_joint
     - r_thigh_yaw_joint
     - r_tibia_joint
     - r_ankle_joint
     - r_phalange_joint
   gains:
-    r_pelvis_joint: {p: 100.0, i: 10.0, d: 0.5, i_clamp: 0.0}
     r_thigh_pitch_joint: {p: 100.0, i: 10.0, d: 0.5, i_clamp: 0.0}
     r_thigh_yaw_joint:  {p: 100.0, i: 10.0, d: 0.5, i_clamp: 0.0}
     r_tibia_joint:   {p: 100.0, i: 10.0, d: 0.5, i_clamp: 0.0}
@@ -56,7 +51,6 @@ r_leg_controller:
   constraints:
     goal_time: 5.0
     stopped_velocity_tolerance: 1.0
-    r_pelvis_joint: {trajectory: 0.2, goal: 0.2}
     r_thigh_pitch_joint: {trajectory: 0.2, goal: 0.2}
     r_thigh_yaw_joint: {trajectory: 0.2, goal: 0.2}
     r_tibia_joint: {trajectory: 0.2, goal: 0.2}

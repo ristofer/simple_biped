@@ -12,7 +12,7 @@
   <arg name="worldname" default="empty" />
 
   <!-- Bender model type -->
-  <arg name="model" default="$(find simple_biped)/urdf/body.xacro" />
+  <arg name="model" default="$(find simple_biped)/urdf/experiment.xacro" />
 
   <!-- - - - - - - -  USEFUL Parameters - - - - - - - -->
 

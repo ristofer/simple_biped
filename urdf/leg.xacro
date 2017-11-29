@@ -28,6 +28,7 @@
   <xacro:macro name="leg" params="side parent reflect body_height body_width body_large">
 
       <!-- Transmissions -->
+    <xacro:joint_transmission joint="${side}_pelvis_joint"/>    
     <xacro:joint_transmission joint="${side}_thigh_yaw_joint"/>
     <xacro:joint_transmission joint="${side}_thigh_pitch_joint"/>
     <xacro:joint_transmission joint="${side}_tibia_joint"/>
@@ -125,6 +126,7 @@
       </geometry>
     </visual>
     <collision>
+      <origin xyz="0 0 ${-1*ankle_height/2}" rpy="0 0 0" />
       <geometry>
         <box size="${ankle_large} ${ankle_width} ${ankle_height}"/>
       </geometry>
