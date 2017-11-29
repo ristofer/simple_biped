@@ -1,0 +1,14 @@
+<launch>
+  <!-- Bender model type -->
+
+
+  <!-- Load joint controller configurations from YAML file to parameter server -->
+  <rosparam file="$(find simple_biped)/config/effort_controller_config.yaml" command="load"/>
+
+
+   <node launch-prefix="xterm -T 'Gazebo controllers' -e" name="bender_controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" ns="/"
+  args="joint_state_controller
+        l_leg_controller
+        r_leg_controller"/>
+
+</launch>

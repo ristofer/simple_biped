@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+  <!-- ROS Control -->
+  <xacro:macro name="ros_control" params="prefix">
+    <gazebo>
+      <plugin filename="libgazebo_ros_control.so" name="ros_control">
+      </plugin>
+    </gazebo>
+  </xacro:macro>
+
+  <!-- For Effort controllers -->
+  <xacro:macro name="joint_transmission" params="joint">
+    <transmission name="${joint}_transmission">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="${joint}">
+       <hardwareInterface>EffortJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="${joint}_motor">
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+  </xacro:macro>
+  <!-- For Position controllers -->
+  <xacro:macro name="joint_pos_transmission" params="joint">
+    <transmission name="${joint}_transmission">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="${joint}">
+       <hardwareInterface>PositionJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="${joint}_motor">
+        <hardwareInterface>PositionJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+  </xacro:macro>
+
+</robot>

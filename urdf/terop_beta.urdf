@@ -4,6 +4,13 @@
 <!-- |    EDITING THIS FILE BY HAND IS NOT RECOMMENDED                                 | -->
 <!-- =================================================================================== -->
 <robot name="body" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!-- ROS Control -->
+  <!-- For Effort controllers -->
+  <!-- For Position controllers -->
+  <gazebo>
+    <plugin filename="libgazebo_ros_control.so" name="ros_control">
+      </plugin>
+  </gazebo>
   <link name="base_link"/>
   <joint name="base_link_to_body" type="fixed">
     <parent link="base_link"/>
@@ -33,6 +40,57 @@
   <!--xacro:property name="body_width" value="0.109" /-->
   <!--xacro:property name="body_large" value="0.102" /-->
   <!-- Left Arm -->
+  <!-- Transmissions -->
+  <transmission name="l_thigh_yaw_joint_transmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="l_thigh_yaw_joint">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="l_thigh_yaw_joint_motor">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="l_thigh_pitch_joint_transmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="l_thigh_pitch_joint">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="l_thigh_pitch_joint_motor">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="l_tibia_joint_transmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="l_tibia_joint">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="l_tibia_joint_motor">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="l_ankle_joint_transmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="l_ankle_joint">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="l_ankle_joint_motor">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="l_phalange_joint_transmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="l_phalange_joint">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="l_phalange_joint_motor">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
   <link name="l_pelvis">
     <inertial>
       <origin xyz="0.000000 0.000480 0.018437"/>
@@ -187,6 +245,57 @@
     <limit effort="10" lower="-2.6179939" upper="2.6179939" velocity="5.6548668"/>
   </joint>
   <!-- Right Arm -->
+  <!-- Transmissions -->
+  <transmission name="r_thigh_yaw_joint_transmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="r_thigh_yaw_joint">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="r_thigh_yaw_joint_motor">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="r_thigh_pitch_joint_transmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="r_thigh_pitch_joint">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="r_thigh_pitch_joint_motor">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="r_tibia_joint_transmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="r_tibia_joint">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="r_tibia_joint_motor">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="r_ankle_joint_transmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="r_ankle_joint">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="r_ankle_joint_motor">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="r_phalange_joint_transmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="r_phalange_joint">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="r_phalange_joint_motor">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
   <link name="r_pelvis">
     <inertial>
       <origin xyz="0.000000 0.000480 0.018437"/>

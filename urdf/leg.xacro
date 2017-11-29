@@ -26,6 +26,13 @@
  <xacro:property name="phalange_width" value="0.035" />
  <xacro:property name="phalange_large" value="0.045" />
   <xacro:macro name="leg" params="side parent reflect body_height body_width body_large">
+
+      <!-- Transmissions -->
+    <xacro:joint_transmission joint="${side}_thigh_yaw_joint"/>
+    <xacro:joint_transmission joint="${side}_thigh_pitch_joint"/>
+    <xacro:joint_transmission joint="${side}_tibia_joint"/>
+    <xacro:joint_transmission joint="${side}_ankle_joint"/>
+    <xacro:joint_transmission joint="${side}_phalange_joint"/>
   <link name="${side}_pelvis" >
     <inertial>
       <origin xyz="0.000000 0.000480 0.018437" />

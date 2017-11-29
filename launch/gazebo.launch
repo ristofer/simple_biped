@@ -1,0 +1,44 @@
+<launch>
+
+  <!-- - - - - - - -  REAL Parameters - - - - - - - -->
+
+  <!-- Gazebo GUI -->
+  <arg name="gui" default="true"/>
+
+  <!-- RQT GUI for control base and arms -->
+  <arg name="rqt_gui" default="false" />
+
+  <!-- Map -->
+  <arg name="worldname" default="empty" />
+
+  <!-- Bender model type -->
+  <arg name="model" default="$(find simple_biped)/urdf/body.xacro" />
+
+  <!-- - - - - - - -  USEFUL Parameters - - - - - - - -->
+
+  <!-- Publish /clock -->
+  <arg name="use_sim_time" value="true"/>
+
+  <!-- Prefix for link and Gazebo sensor topics -->
+  <!-- ros_control doesnt support! @TODO -->
+  <arg name="prefix" default="/" />
+
+
+  <!-- Use simulation time -->
+  <param name="use_sim_time" value="$(arg use_sim_time)" />
+ <param name="robot_description" command="$(find xacro)/xacro.py $(arg model)" />
+  <!-- Launch Gazebo with empty world -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="use_sim_time" value="$(arg use_sim_time)"/>
+    <arg name="gui" value="$(arg gui)"/>
+  </include>
+  
+
+  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model"
+        args="-z 1.0 -unpause -urdf -model robot -param robot_description" respawn="false" output="screen" />
+
+  <node pkg="robot_state_publisher" type="robot_state_publisher"  name="robot_state_publisher">
+    <param name="publish_frequency" type="double" value="30.0" />
+  </node>
+  
+</launch>

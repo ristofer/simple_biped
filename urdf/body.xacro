@@ -2,7 +2,8 @@
 <robot
   xmlns:xacro="http://www.ros.org/wiki/xacro"
   name="body">
-
+  <xacro:include filename="$(find simple_biped)/urdf/gazebo.xacro" />
+  <xacro:ros_control prefix="terop"/>
  <xacro:property name="body_height" value="0.106" />
  <xacro:property name="body_width" value="0.150" />
  <xacro:property name="body_large" value="0.300" />
