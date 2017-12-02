@@ -11,6 +11,7 @@ import numpy as np
 # ROS Core
 import rospy
 import actionlib
+import math
 # ROS Messages
 from sensor_msgs.msg import JointState
 from trajectory_msgs.msg import JointTrajectoryPoint
@@ -36,7 +37,7 @@ class LegSkill(RobotSkill):
     L_LEG = "l_leg"
     """str: Left arm name"""
 
-    R_LEG = "R_LEG"
+    R_LEG = "r_leg"
     """str: Right arm name"""
 
     def __init__(self, arm_name):
@@ -249,10 +250,49 @@ class RightLegSkill(LegSkill):
         super(RightLegSkill, self).__init__(LegSkill.R_LEG)
 if __name__ == "__main__":
     rospy.init_node("grossi_saurio")
+    angles = [89,102.9,81.8,-1.0]
+    angles2  = [78.3,81.8,72.6,-1.0]
+    angles3 = [77.3,89.0,68.0,-1.0]
+    angles4 = [75.5,86.7,69.9,-1.0]
+    angles5 = [74.6,96.8,86.3,-1.0]
+    angles6 = [67.8,91.3,90.0,-1.0]
+    angles7 = [60.8,108.2,90.0,-1.0]
+    angles8 = [70,142.7,90.0,0.0]
+    angles9 = [73.3,123.8, 90.0,0.0]
+    angles10 = [97.8,147.1,90.0,0.0]
+    angles11 = [100.3,139.9,90.0,0.0]
+    angles12 = [85.5,94.4,75.8,0.0]
+    all_angles = [angles,angles2,angles3,angles4,angles5,angles6,angles7,angles8,angles9,angles10,angles11,angles12]
+    thigh_angles = []
+    tibia_angles = []
+    ankle_angles = []
+    phalange_angles = []
+    for lista in all_angles:
+        thigh_angles.append(lista[0])
+        tibia_angles.append(lista[1])
+        ankle_angles.append(lista[2])
+        phalange_angles.append(lista[3])
+    for i,thetha in enumerate(thigh_angles):
+        thigh_angles[i] = (thetha-90)*(3.14/180) 
+    for i,thetha in enumerate(tibia_angles):
+        tibia_angles[i] = (180-thetha)*(3.14/180)     
+    for i,thetha in enumerate(ankle_angles):
+        ankle_angles[i] = (thetha-180)*(3.14/180)  
     l_leg = LeftLegSkill()
     r_leg = RightLegSkill()
     l_leg.check()
     l_leg.setup()
+    print r_leg.check()
+    print r_leg.setup()
     print l_leg.get_joint_names()
-    l_leg.send_joint_goal([0.4,0.1,0.1,0.1,0.1,0.1])
-    l_leg.wait_for_motion_done()
+    print r_leg.get_joint_names()
+    print ankle_angles
+    while not rospy.is_shutdown():
+        for i,thetha in enumerate(thigh_angles):
+            l_leg.send_joint_goal([thigh_angles[i],0.0,0.0,tibia_angles[i],ankle_angles[i],phalange_angles[i]],interval=0.5,segments=100)
+            l_leg.wait_for_motion_done()
+            if i+7 <= 11:
+                r_leg.send_joint_goal([thigh_angles[i+7],0.0,0.0,tibia_angles[i+7],ankle_angles[i+7],phalange_angles[i+7]],interval=0.5,segments=100)
+            else:
+                r_leg.send_joint_goal([thigh_angles[i-12],0.0,0.0,tibia_angles[i-12],ankle_angles[i-12],phalange_angles[i-12]],interval=0.5,segments=100)
+            r_leg.wait_for_motion_done()
