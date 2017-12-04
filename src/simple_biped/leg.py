@@ -287,13 +287,14 @@ if __name__ == "__main__":
     print l_leg.get_joint_names()
     print r_leg.get_joint_names()
     print ankle_angles
+    times = [8,1,3,2,3,2,6,6,6,9,3,13]
+    for i,n in enumerate(times):
+        times[i] = n*0.033
     while not rospy.is_shutdown():
         for i,thetha in enumerate(thigh_angles):
-            l_leg.send_joint_goal([thigh_angles[i],0.0,0.0,tibia_angles[i],ankle_angles[i],phalange_angles[i]],interval=0.5,segments=100)
+            l_leg.send_joint_goal([thigh_angles[i],0.0,0.0,tibia_angles[i],ankle_angles[i],phalange_angles[i]],interval=times[i],segments=24)
             if i+7 <= 11:
-                r_leg.send_joint_goal([thigh_angles[i+7],0.0,0.0,tibia_angles[i+7],ankle_angles[i+7],phalange_angles[i+7]],interval=0.5,segments=100)
+                r_leg.send_joint_goal([thigh_angles[i+7],0.0,0.0,tibia_angles[i+7],ankle_angles[i+7],phalange_angles[i+7]],interval=times[i+7],segments=24)
             else:
-                r_leg.send_joint_goal([thigh_angles[i-12],0.0,0.0,tibia_angles[i-12],ankle_angles[i-12],phalange_angles[i-12]],interval=0.5,segments=100)
-            l_leg.wait_for_motion_done()            
-            r_leg.wait_for_motion_done()
+                r_leg.send_joint_goal([thigh_angles[i-12],0.0,0.0,tibia_angles[i-12],ankle_angles[i-12],phalange_angles[i-12]],interval=times[i-12],segments=24)
             rospy.sleep(2)
