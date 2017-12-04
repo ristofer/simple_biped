@@ -290,9 +290,10 @@ if __name__ == "__main__":
     while not rospy.is_shutdown():
         for i,thetha in enumerate(thigh_angles):
             l_leg.send_joint_goal([thigh_angles[i],0.0,0.0,tibia_angles[i],ankle_angles[i],phalange_angles[i]],interval=0.5,segments=100)
-            l_leg.wait_for_motion_done()
             if i+7 <= 11:
                 r_leg.send_joint_goal([thigh_angles[i+7],0.0,0.0,tibia_angles[i+7],ankle_angles[i+7],phalange_angles[i+7]],interval=0.5,segments=100)
             else:
                 r_leg.send_joint_goal([thigh_angles[i-12],0.0,0.0,tibia_angles[i-12],ankle_angles[i-12],phalange_angles[i-12]],interval=0.5,segments=100)
+            l_leg.wait_for_motion_done()            
             r_leg.wait_for_motion_done()
+            rospy.sleep(2)
