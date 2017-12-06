@@ -13,13 +13,13 @@ l_leg_controller:
     - l_ankle_joint
     - l_phalange_joint
   gains:
-    l_pelvis_joint: {p: 100000000000000000.0, i: 10.0, d: 0.5, i_clamp: 0.0}
-    l_thigh_pitch_joint: {p: 100000000000000000.0, i: 10.0, d: 0.5, i_clamp: 0.0}
-    l_thigh_yaw_joint:  {p: 10000000000000000000.0, i: 10.0, d: 0.5, i_clamp: 0.0}
-    l_tibia_joint:   {p: 1000000000000000000000.0, i: 10.0, d: 0.5, i_clamp: 0.0}
-    l_ankle_joint:    {p: 1000000000000000.0, i: 10.0, d: 0.5, i_clamp: 0.0}
-    l_phalange_joint:      {p: 1000000000000000.0, i: 10.0, d: 0.5, i_clamp: 0.0}
-    l_wrist_pitch_joint:    {p: 1000000000000000.0, i: 10.0, d: 0.5, i_clamp: 0.0}
+    l_pelvis_joint: {p: 1000.0, i: 10.0, d: 0.5, i_clamp: 0.0}
+    l_thigh_pitch_joint: {p: 1000.0, i: 10.0, d: 0.5, i_clamp: 0.0}
+    l_thigh_yaw_joint:  {p: 10000.0, i: 10.0, d: 0.5, i_clamp: 0.0}
+    l_tibia_joint:   {p: 100000.0, i: 10.0, d: 0.5, i_clamp: 0.0}
+    l_ankle_joint:    {p: 1000.0, i: 10.0, d: 0.5, i_clamp: 0.0}
+    l_phalange_joint:      {p: 10000.0, i: 10.0, d: 0.5, i_clamp: 0.0}
+    l_wrist_pitch_joint:    {p: 10000.0, i: 10.0, d: 0.5, i_clamp: 0.0}
 
   constraints:
     goal_time: 5.0
@@ -46,12 +46,12 @@ r_leg_controller:
     - r_ankle_joint
     - r_phalange_joint
   gains:
-    r_pelvis_joint: {p: 100000000000000000.0, i: 10.0, d: 0.5, i_clamp: 0.0}
-    r_thigh_pitch_joint: {p: 1000000000000000.0, i: 10.0, d: 0.5, i_clamp: 0.0}
-    r_thigh_yaw_joint:  {p: 1000000000000000000000.0, i: 10.0, d: 0.5, i_clamp: 0.0}
-    r_tibia_joint:   {p: 1000000000000000.0, i: 10.0, d: 0.5, i_clamp: 0.0}
-    r_ankle_joint:    {p: 1000000000000000.0, i: 10.0, d: 0.5, i_clamp: 0.0}
-    r_phalange_joint:      {p: 10000000000000.0, i: 10.0, d: 0.5, i_clamp: 0.0}
+    r_pelvis_joint: {p: 1000.0, i: 10.0, d: 0.5, i_clamp: 0.0}
+    r_thigh_pitch_joint: {p: 10000.0, i: 10.0, d: 0.5, i_clamp: 0.0}
+    r_thigh_yaw_joint:  {p: 1000000.0, i: 10.0, d: 0.5, i_clamp: 0.0}
+    r_tibia_joint:   {p: 10000.0, i: 10.0, d: 0.5, i_clamp: 0.0}
+    r_ankle_joint:    {p: 100000.0, i: 10.0, d: 0.5, i_clamp: 0.0}
+    r_phalange_joint:      {p: 1000.0, i: 10.0, d: 0.5, i_clamp: 0.0}
 
   constraints:
     goal_time: 5.0
