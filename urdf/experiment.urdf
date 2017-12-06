@@ -16,25 +16,83 @@
     <parent link="world"/>
     <child link="column"/>
   </joint>
+  <link name="neck">
+    <inertial>
+      <origin xyz="-0.003053 -0.038651 -0.019268"/>
+      <mass value="0.97559947"/>
+      <inertia ixx="3.1081800" ixy="-0.25460189" ixz="2.0318174" iyy="6.3787776" iyz="0.16417863" izz="5.3316425"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <!--origin xyz="-0.0235 0 -0.03525" rpy="0 0 0" /-->
+      <geometry>
+        <box size="0.0357142857143 0.0142857142857 0.0151428571429"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="head">
+    <inertial>
+      <origin xyz="-0.003053 -0.038651 -0.019268"/>
+      <mass value="0.97559947"/>
+      <inertia ixx="3.1081800" ixy="-0.25460189" ixz="2.0318174" iyy="6.3787776" iyz="0.16417863" izz="5.3316425"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0.0625 0 0"/>
+      <!--origin xyz="-0.0235 0 -0.03525" rpy="0 0 0" /-->
+      <geometry>
+        <box size="0.125 0.08 0.0636"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="tail">
+    <inertial>
+      <origin xyz="-0.003053 -0.038651 -0.019268"/>
+      <mass value="0.97559947"/>
+      <inertia ixx="3.1081800" ixy="-0.25460189" ixz="2.0318174" iyy="6.3787776" iyz="0.16417863" izz="5.3316425"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 -1.57079632679 0" xyz="-0.250 0 0"/>
+      <!--origin xyz="-0.0235 0 -0.03525" rpy="0 0 0" /-->
+      <geometry>
+        <mesh filename="package://simple_biped/cone.stl" scale="0.005 0.005 0.005"/>
+      </geometry>
+    </visual>
+  </link>
   <link name="base_link"/>
+  <joint name="body_to_tail" type="fixed">
+    <parent link="body"/>
+    <child link="tail"/>
+    <origin rpy="0 0 0" xyz="-0.125 0 0"/>
+  </joint>
+  <joint name="body_to_neck" type="fixed">
+    <parent link="body"/>
+    <child link="neck"/>
+    <origin rpy="0 0 0" xyz="0.125 0 0.0353333333333"/>
+  </joint>
+  <joint name="neck_to_head" type="fixed">
+    <parent link="neck"/>
+    <child link="head"/>
+    <origin rpy="0 0 0" xyz="0.0178571428571 0 0"/>
+  </joint>
   <joint name="base_link_to_body" type="fixed">
     <parent link="base_link"/>
     <child link="body"/>
   </joint>
-  <joint name="column_to_beam" type="fixed">
+  <joint name="column_to_beam" type="continuous">
     <parent link="column"/>
     <child link="beam"/>
+    <axis xyz="0 0 1"/>
     <origin rpy="0 0 0" xyz="0 0.503 0.53"/>
   </joint>
   <joint name="beam_to_support" type="fixed">
     <parent link="beam"/>
     <child link="support"/>
-    <origin rpy="0 0 0" xyz="0 0.503 -0.15"/>
+    <origin rpy="0 0 0" xyz="0 0.503 -0.595"/>
   </joint>
   <joint name="support_to_base_link" type="fixed">
     <parent link="support"/>
     <child link="base_link"/>
-    <origin rpy="0 0 0" xyz="0 0 -0.15"/>
+    <origin rpy="0 0 0" xyz="0 0 -0.595"/>
   </joint>
   <link name="column">
     <inertial>
@@ -64,12 +122,12 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <box size="0.05 0.05 0.3"/>
+        <box size="0.05 0.05 1.19"/>
       </geometry>
     </visual>
     <collision>
       <geometry>
-        <box size="0.05 0.05 0.3"/>
+        <box size="0.05 0.05 1.19"/>
       </geometry>
     </collision>
   </link>
@@ -102,12 +160,12 @@
       <!--origin xyz="-0.0235 0 -0.03525" rpy="0 0 0" /-->
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <box size="0.3 0.15 0.106"/>
+        <box size="0.25 0.1 0.106"/>
       </geometry>
     </visual>
     <collision>
       <geometry>
-        <box size="0.3 0.15 0.106"/>
+        <box size="0.25 0.1 0.106"/>
       </geometry>
     </collision>
   </link>
@@ -280,28 +338,29 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 -0.03725"/>
       <geometry>
-        <box size="0.045 0.035 0.0745"/>
+        <box size="0.02 0.02 0.0745"/>
       </geometry>
     </visual>
     <collision>
+      <origin rpy="0 0 0" xyz="0 0 -0.03725"/>
       <geometry>
-        <box size="0.045 0.035 0.0745"/>
+        <box size="0.02 0.02 0.0745"/>
       </geometry>
     </collision>
   </link>
   <joint name="l_pelvis_joint" type="revolute">
     <parent link="body"/>
     <child link="l_pelvis"/>
-    <origin rpy="0 0 0" xyz="0 -0.075 0"/>
+    <origin rpy="0 0 0" xyz="-0.0416666666667 -0.05 0.0212"/>
     <axis xyz="0 0 1"/>
-    <limit effort="10" lower="-1.308996939" upper="0.785398163397" velocity="5.6548668"/>
+    <limit effort="10" lower="0" upper="0" velocity="5.6548668"/>
   </joint>
   <joint name="l_thigh_yaw_joint" type="revolute">
     <parent link="l_pelvis"/>
     <child link="l_thigh_yaw"/>
     <origin rpy="0 0 0" xyz="0 -0.040875 -0.028652"/>
     <axis xyz="0 0 1"/>
-    <limit effort="10" lower="-2.6179939" upper="2.6179939" velocity="5.6548668"/>
+    <limit effort="10" lower="0" upper="0" velocity="5.6548668"/>
   </joint>
   <joint name="l_thigh_pitch_joint" type="revolute">
     <parent link="l_thigh_yaw"/>
@@ -329,7 +388,7 @@
     <child link="l_phalange"/>
     <origin rpy="0 0 0" xyz="0 0 -0.0745"/>
     <axis xyz="0 1 0"/>
-    <limit effort="10" lower="-2.6179939" upper="2.6179939" velocity="5.6548668"/>
+    <limit effort="10" lower="-0.785398163397" upper="0" velocity="5.6548668"/>
   </joint>
   <!-- Right Arm -->
   <!-- Transmissions -->
@@ -496,28 +555,29 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 -0.03725"/>
       <geometry>
-        <box size="0.045 0.035 0.0745"/>
+        <box size="0.02 0.02 0.0745"/>
       </geometry>
     </visual>
     <collision>
+      <origin rpy="0 0 0" xyz="0 0 -0.03725"/>
       <geometry>
-        <box size="0.045 0.035 0.0745"/>
+        <box size="0.02 0.02 0.0745"/>
       </geometry>
     </collision>
   </link>
   <joint name="r_pelvis_joint" type="revolute">
     <parent link="body"/>
     <child link="r_pelvis"/>
-    <origin rpy="0 0 0" xyz="0 0.075 0"/>
+    <origin rpy="0 0 0" xyz="-0.0416666666667 0.05 0.0212"/>
     <axis xyz="0 0 1"/>
-    <limit effort="10" lower="-1.308996939" upper="0.785398163397" velocity="5.6548668"/>
+    <limit effort="10" lower="0" upper="0" velocity="5.6548668"/>
   </joint>
   <joint name="r_thigh_yaw_joint" type="revolute">
     <parent link="r_pelvis"/>
     <child link="r_thigh_yaw"/>
     <origin rpy="0 0 0" xyz="0 0.040875 -0.028652"/>
     <axis xyz="0 0 1"/>
-    <limit effort="10" lower="-2.6179939" upper="2.6179939" velocity="5.6548668"/>
+    <limit effort="10" lower="0" upper="0" velocity="5.6548668"/>
   </joint>
   <joint name="r_thigh_pitch_joint" type="revolute">
     <parent link="r_thigh_yaw"/>
@@ -545,7 +605,7 @@
     <child link="r_phalange"/>
     <origin rpy="0 0 0" xyz="0 0 -0.0745"/>
     <axis xyz="0 1 0"/>
-    <limit effort="10" lower="-2.6179939" upper="2.6179939" velocity="5.6548668"/>
+    <limit effort="10" lower="-0.785398163397" upper="0" velocity="5.6548668"/>
   </joint>
 </robot>
 

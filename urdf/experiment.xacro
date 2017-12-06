@@ -4,9 +4,10 @@
   name="body">
   <xacro:include filename="$(find simple_biped)/urdf/gazebo.xacro" />
   <xacro:ros_control prefix="terop"/>
+  <xacro:property name="M_PI" value="3.1415926535897931" />
  <xacro:property name="body_height" value="0.106" />
- <xacro:property name="body_width" value="0.150" />
- <xacro:property name="body_large" value="0.300" />
+ <xacro:property name="body_width" value="0.100" />
+ <xacro:property name="body_large" value="0.250" />
   <xacro:property name="column_height" value="1.06" />
   <xacro:property name="cross_length" value="0.05" />
   <xacro:property name="beam_height" value="1.006" />
@@ -18,8 +19,64 @@
     <child link="column"/>
   </joint>
 
+  <link name="neck">
+    <inertial>
+      <origin xyz="-0.003053 -0.038651 -0.019268" />
+      <mass value="0.97559947"/>
+      <inertia ixx="3.1081800"  ixy="-0.25460189"  ixz="2.0318174" iyy="6.3787776" iyz="0.16417863" izz="5.3316425" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <!--origin xyz="-0.0235 0 -0.03525" rpy="0 0 0" /-->
+      <geometry>
+        <box size="${body_large/7} ${body_width/7} ${body_height/7}" />
+      </geometry>
+    </visual>
+  </link>
+    <link name="head">
+    <inertial>
+      <origin xyz="-0.003053 -0.038651 -0.019268" />
+      <mass value="0.97559947"/>
+      <inertia ixx="3.1081800"  ixy="-0.25460189"  ixz="2.0318174" iyy="6.3787776" iyz="0.16417863" izz="5.3316425" />
+    </inertial>
+    <visual>
+      <origin xyz="${body_large*0.5/2} 0 0" rpy="0 0 0" />
+      <!--origin xyz="-0.0235 0 -0.03525" rpy="0 0 0" /-->
+      <geometry>
+        <box size="${body_large*0.5} ${body_width*0.8} ${body_height*0.6}" />
+      </geometry>
+    </visual>
+  </link>
+  <link name="tail">
+    <inertial>
+      <origin xyz="-0.003053 -0.038651 -0.019268" />
+      <mass value="0.97559947"/>
+      <inertia ixx="3.1081800"  ixy="-0.25460189"  ixz="2.0318174" iyy="6.3787776" iyz="0.16417863" izz="5.3316425" />
+    </inertial>
+    <visual>
+      <origin xyz="-0.250 0 0" rpy="0 ${-M_PI/2} 0" />
+      <!--origin xyz="-0.0235 0 -0.03525" rpy="0 0 0" /-->
+      <geometry>
+        <mesh filename="package://simple_biped/cone.stl" scale="0.005 0.005 0.005"/>
+      </geometry>
+    </visual>
+  </link>
   <link name="base_link"/>
-
+  <joint name="body_to_tail" type="fixed">
+    <parent link="body"/>
+    <child link="tail"/>
+    <origin xyz="${-body_large/2} 0 0" rpy="0 0 0" />
+  </joint>
+ <joint name="body_to_neck" type="fixed">
+    <parent link="body"/>
+    <child link="neck"/>
+    <origin xyz="${body_large/2} 0 ${body_height/3}" rpy="0 0 0" />
+  </joint>
+  <joint name="neck_to_head" type="fixed">
+    <parent link="neck"/>
+    <child link="head"/>
+    <origin xyz="${body_large/14} 0 0" rpy="0 0 0" />
+  </joint>
   <joint name="base_link_to_body" type="fixed">
     <parent link="base_link"/>
     <child link="body"/>
