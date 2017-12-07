@@ -157,7 +157,7 @@
     <child link="${side}_pelvis"/>
     <origin xyz="${-body_large/6} ${reflect*body_width/2} ${body_height/5}" rpy="0 0 0" />
     <axis xyz="0 0 1" />
-    <limit effort="10" velocity="5.6548668" lower="0" upper="0" />
+    <limit effort="10" velocity="5.6548668" lower="0" upper="0.01" />
   </joint>
   
   <joint name="${side}_thigh_yaw_joint" type="revolute">
@@ -165,7 +165,7 @@
     <child link="${side}_thigh_yaw"/>
     <origin xyz="0 ${reflect*pelvis_width/2} ${-1*pelvis_height}" rpy="0 0 0" />
     <axis xyz="0 0 1" />
-    <limit effort="10" velocity="5.6548668" lower="0" upper="0" />
+    <limit effort="10" velocity="5.6548668" lower="0" upper="0.01" />
   </joint>
 
   <joint name="${side}_thigh_pitch_joint" type="revolute">
