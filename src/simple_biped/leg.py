@@ -219,7 +219,7 @@ class LegSkill(object):
         Returns:
             bool: True if the goal finished. False if the goal didn't finish within the allocated timeout.
         """
-        rospy.log.info('Waiting for \"{0}\" motion'.format(self.name))
+        rospy.loginfo('Waiting for \"{0}\" motion'.format(self.name))
         return self._jta_client.wait_for_result(rospy.Duration(timeout))
 
     def get_result(self):
@@ -294,4 +294,5 @@ if __name__ == "__main__":
                 r_leg.send_joint_goal([thigh_angles[i+7],0.0,0.0,tibia_angles[i+7],ankle_angles[i+7],phalange_angles[i+7]],interval=times[i+7],segments=24)
             else:
                 r_leg.send_joint_goal([thigh_angles[i-12],0.0,0.0,tibia_angles[i-12],ankle_angles[i-12],phalange_angles[i-12]],interval=times[i-12],segments=24)
-            rospy.sleep(2)
+            l_leg.wait_for_motion_done()
+            r_leg.wait_for_motion_done()  
