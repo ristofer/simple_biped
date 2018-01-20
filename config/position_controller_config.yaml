@@ -4,7 +4,7 @@ joint_state_controller:
 
 # Left arm controller
 l_leg_controller:
-  type: effort_controllers/JointTrajectoryController
+  type: position_controllers/JointTrajectoryController
   joints:
     - l_pelvis_joint
     - l_thigh_pitch_joint
@@ -37,7 +37,7 @@ l_leg_controller:
 
 # Right arm controller
 r_leg_controller:
-  type: effort_controllers/JointTrajectoryController
+  type: position_controllers/JointTrajectoryController
   joints:
     - r_pelvis_joint
     - r_thigh_pitch_joint

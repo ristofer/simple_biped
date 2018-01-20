@@ -11,7 +11,7 @@
   <xacro:property name="column_height" value="1.06" />
   <xacro:property name="cross_length" value="0.05" />
   <xacro:property name="beam_height" value="1.006" />
-  <xacro:property name="support_height" value="1.190" />
+  <xacro:property name="support_height" value="1.200" />
   <link name="world"/>
 
   <joint name="fixed" type="fixed">
