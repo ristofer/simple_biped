@@ -327,3 +327,4 @@ if __name__ == "__main__":
         for i,thetha in enumerate(thigh_angles):
             l_leg.send_joint_goal([thigh_angles[i],0.0,0.0,tibia_angles[i],ankle_angles[i],phalange_angles[i]],interval=5,segments=10)
             l_leg.wait_for_motion_done()
+
