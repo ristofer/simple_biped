@@ -17,6 +17,18 @@ from sensor_msgs.msg import JointState
 from trajectory_msgs.msg import JointTrajectoryPoint
 from control_msgs.msg import (FollowJointTrajectoryAction, FollowJointTrajectoryGoal)
 
+from scipy.interpolate import UnivariateSpline, splev, splrep
+
+splines_dic = dict()
+for letter in ["A","B","C","D"]:
+    spline_file = np.load("spline_"+letter+".npz")
+    splines_dic[letter] = spline_file["arr_0"]
+
+def periodize(t,spline_parameters):
+    real_t = t % 2
+    print real_t
+    return splev(real_t+4.081279275,spline_parameters) 
+
 class LegSkill(object):
     """
     Base class for joint space control using joint trajectory action.
@@ -208,6 +220,44 @@ class LegSkill(object):
         # Send goal to JTA
         rospy.loginfo('Sending new goal for \"{0}\"'.format(self.name))
         self._jta_client.send_goal(goal)
+    def send_joint_goal_special(self):
+        """
+        Send joint goal reference to the arm.
+
+        This function use linear interpolation between current position (obtained via joint_states topic)
+        and joint goal.
+
+        Args:
+            joint_goal (list of float): Joint target configuration, must follow arm.get_joint_names() order.
+            interval (float): Time interval between current position and joint goal.
+
+        Examples:
+            >>> arm.send_joint_goal([0.0, 0.0, 0.0, 0.0, 0.0, 0.0]) # Send to home position
+        """
+        # Check joint state time stamp
+        rospy.sleep(0.05)
+        current_state = self.get_joint_state()
+        if (rospy.Time.now() - current_state.header.stamp) > rospy.Duration(1.0):
+            rospy.logerr("Current position has not been updated, check \"{}\" topic.".format(self._joint_state_topic))
+            return
+        # Create new goal
+        goal = FollowJointTrajectoryGoal()
+        goal.trajectory.joint_names = self.get_joint_names()
+        dt = interval/segments
+        t = 0.1
+        inter_points = list()
+        for i in range(LegSkill.NUM_JOINTS):
+            # TODO(rorromr) Use parabolic interpolation
+            inter_points.append(np.linspace(current_state.position[i], joint_goal[i], segments))
+        for j in range(segments):
+            point = JointTrajectoryPoint()
+            point.positions = [joint[j] for joint in inter_points]
+            t += dt
+            point.time_from_start = rospy.Duration(t)
+            goal.trajectory.points.append(point)
+        # Send goal to JTA
+        rospy.loginfo('Sending new goal for \"{0}\"'.format(self.name))
+        self._jta_client.send_goal(goal)
 
     def wait_for_motion_done(self, timeout=0.0):
         """
@@ -219,7 +269,7 @@ class LegSkill(object):
         Returns:
             bool: True if the goal finished. False if the goal didn't finish within the allocated timeout.
         """
-        rospy.log.info('Waiting for \"{0}\" motion'.format(self.name))
+        rospy.loginfo('Waiting for \"{0}\" motion'.format(self.name))
         return self._jta_client.wait_for_result(rospy.Duration(timeout))
 
     def get_result(self):
@@ -247,28 +297,15 @@ class RightLegSkill(LegSkill):
         super(RightLegSkill, self).__init__(LegSkill.R_LEG)
 if __name__ == "__main__":
     rospy.init_node("grossi_saurio")
-    angles = [89,102.9,81.8,-1.0]
-    angles2  = [78.3,81.8,72.6,-1.0]
-    angles3 = [77.3,89.0,68.0,-1.0]
-    angles4 = [75.5,86.7,69.9,-1.0]
-    angles5 = [74.6,96.8,86.3,-1.0]
-    angles6 = [67.8,91.3,90.0,-1.0]
-    angles7 = [60.8,108.2,90.0,-1.0]
-    angles8 = [70,142.7,90.0,0.0]
-    angles9 = [73.3,123.8, 90.0,0.0]
-    angles10 = [97.8,147.1,90.0,0.0]
-    angles11 = [100.3,139.9,90.0,0.0]
-    angles12 = [85.5,94.4,75.8,0.0]
-    all_angles = [angles,angles2,angles3,angles4,angles5,angles6,angles7,angles8,angles9,angles10,angles11,angles12]
     thigh_angles = []
     tibia_angles = []
     ankle_angles = []
     phalange_angles = []
-    for lista in all_angles:
-        thigh_angles.append(lista[0])
-        tibia_angles.append(lista[1])
-        ankle_angles.append(lista[2])
-        phalange_angles.append(lista[3])
+    time= np.arange(0,10,0.001)
+    thigh_angles = periodize(time,splines_dic["A"])
+    tibia_angles = periodize(time,splines_dic["B"])
+    ankle_angles = periodize(time,splines_dic["C"])
+    phalange_angles = thigh_angles
     for i,thetha in enumerate(thigh_angles):
         thigh_angles[i] = (thetha-90)*(3.14/180) 
     for i,thetha in enumerate(tibia_angles):
@@ -284,14 +321,9 @@ if __name__ == "__main__":
     print l_leg.get_joint_names()
     print r_leg.get_joint_names()
     print ankle_angles
-    times = [8,1,3,2,3,2,6,6,6,9,3,13]
-    for i,n in enumerate(times):
-        times[i] = n*0.033
+    print len(thigh_angles)
+    print len(phalange_angles)
     while not rospy.is_shutdown():
         for i,thetha in enumerate(thigh_angles):
-            l_leg.send_joint_goal([thigh_angles[i],0.0,0.0,tibia_angles[i],ankle_angles[i],phalange_angles[i]],interval=times[i],segments=24)
-            if i+7 <= 11:
-                r_leg.send_joint_goal([thigh_angles[i+7],0.0,0.0,tibia_angles[i+7],ankle_angles[i+7],phalange_angles[i+7]],interval=times[i+7],segments=24)
-            else:
-                r_leg.send_joint_goal([thigh_angles[i-12],0.0,0.0,tibia_angles[i-12],ankle_angles[i-12],phalange_angles[i-12]],interval=times[i-12],segments=24)
-            rospy.sleep(2)
+            l_leg.send_joint_goal([thigh_angles[i],0.0,0.0,tibia_angles[i],ankle_angles[i],phalange_angles[i]],interval=5,segments=10)
+            l_leg.wait_for_motion_done()
