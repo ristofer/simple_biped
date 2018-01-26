@@ -16,7 +16,7 @@ import math
 from sensor_msgs.msg import JointState
 from trajectory_msgs.msg import JointTrajectoryPoint
 from control_msgs.msg import (FollowJointTrajectoryAction, FollowJointTrajectoryGoal)
-
+from std_msgs.msg import Float64
 from scipy.interpolate import UnivariateSpline, splev, splrep
 
 splines_dic = dict()
@@ -87,6 +87,11 @@ class LegSkill(object):
         self._joint_state_sub = None
         self._jta_client = None
         self._joint_state_pub = None
+        rospy.loginfo("Creating joint command publishers")
+        self._pub_joints={}
+        for j in self.joint_names:
+            p=rospy.Publisher(j+"_position_controller/command",Float64)
+            self._pub_joints[j]=p
 
 
     def setup(self):
@@ -112,6 +117,9 @@ class LegSkill(object):
         self._joint_state_pub.publish(msg)
         print "set joint state"
 
+    def set_angles(self,angles):
+        for i,angle in enumerate(angles):
+            self._pub_joints[self.joint_names[i]].publish(angle)
 
 class LeftLegSkill(LegSkill):
     """Left arm control using using joint trajectory action"""
@@ -148,7 +156,7 @@ if __name__ == "__main__":
     for i,thetha in enumerate(ankle_angles):
         ankle_angles[i] = (thetha-180)*(3.14/180) 
     for i,thetha in enumerate(phalange_angles):
-        phalange_angles[i] = ((thetha-15)-180)*(3.14/180) 
+        phalange_angles[i] = ((thetha)-180)*(3.14/180) 
     for i,thetha in enumerate(thigh_angles_c):
         thigh_angles_c[i] = -1*(thetha+90)*(3.14/180) 
     for i,thetha in enumerate(tibia_angles_c):
@@ -156,7 +164,7 @@ if __name__ == "__main__":
     for i,thetha in enumerate(ankle_angles_c):
         ankle_angles_c[i] = (thetha-180)*(3.14/180) 
     for i,thetha in enumerate(phalange_angles_c):
-        phalange_angles_c[i] = ((thetha-15)-180)*(3.14/180) 
+        phalange_angles_c[i] = ((thetha)-180)*(3.14/180) 
     l_leg = LeftLegSkill()
     r_leg = RightLegSkill()
 
@@ -168,11 +176,13 @@ if __name__ == "__main__":
     print ankle_angles
     print len(thigh_angles)
     print len(phalange_angles)
-    rate = rospy.Rate(100000)
+    rate = rospy.Rate(100000000)
     while not rospy.is_shutdown():
         for i,thetha in enumerate(thigh_angles):
-            l_leg.set_joint_states([thigh_angles[i],0.0,0.0,tibia_angles[i],ankle_angles[i],phalange_angles[i]])
-            r_leg.set_joint_states([thigh_angles_c[i],0.0,0.0,tibia_angles_c[i],ankle_angles_c[i],phalange_angles_c[i]])
+            #l_leg.set_joint_states([thigh_angles[i],0.0,0.0,tibia_angles[i],ankle_angles[i],phalange_angles[i]])
+            #r_leg.set_joint_states([thigh_angles_c[i],0.0,0.0,tibia_angles_c[i],ankle_angles_c[i],phalange_angles_c[i]])
+            l_leg.set_angles([thigh_angles[i],0.0,0.0,tibia_angles[i],ankle_angles[i],phalange_angles[i]])
+            r_leg.set_angles([thigh_angles_c[i],0.0,0.0,tibia_angles_c[i],ankle_angles_c[i],phalange_angles_c[i]])
             print "ok"
             rate.sleep()
 

@@ -265,8 +265,8 @@ if __name__ == "__main__":
     tibia_angles = []
     ankle_angles = []
     phalange_angles = []
-    time= np.arange(0,100,0.0001)
-    time_c= np.arange(1,101,0.0001)
+    time= np.arange(0,100,0.001)
+    time_c= np.arange(1,101,1)
     thigh_angles = periodize(time,splines_dic["A"])
     tibia_angles = periodize(time,splines_dic["B"])
     ankle_angles = periodize(time,splines_dic["C"])
@@ -297,11 +297,12 @@ if __name__ == "__main__":
     
     l_leg.setup()
     r_leg.setup()
-    rate = rospy.Rate(100)
+    rate = rospy.Rate(100000)
     while not rospy.is_shutdown():
         for i,thetha in enumerate(thigh_angles):
-            l_leg.send_joint_goal([thigh_angles[i],0.0,0.0,tibia_angles[i],ankle_angles[i],phalange_angles[i]],segments=1)
-            r_leg.send_joint_goal([thigh_angles_c[i],0.0,0.0,tibia_angles_c[i],ankle_angles_c[i],phalange_angles_c[i]],segments=1)
+            l_leg.send_joint_goal([thigh_angles[i],0.0,0.0,tibia_angles[i],ankle_angles[i],phalange_angles[i]],segments=2)
+            r_leg.send_joint_goal([thigh_angles_c[i],0.0,0.0,tibia_angles_c[i],ankle_angles_c[i],phalange_angles_c[i]],segments=2)
+            #l_leg.send_joint_goal([0.2,0.2,0.2,0.2,0.2,0.2],segments=2)
             l_leg.wait_for_motion_done()
             r_leg.wait_for_motion_done()
             print "ok"
