@@ -168,7 +168,7 @@ if __name__ == "__main__":
     print ankle_angles
     print len(thigh_angles)
     print len(phalange_angles)
-    rate = rospy.Rate(10000)
+    rate = rospy.Rate(100000)
     while not rospy.is_shutdown():
         for i,thetha in enumerate(thigh_angles):
             l_leg.set_joint_states([thigh_angles[i],0.0,0.0,tibia_angles[i],ankle_angles[i],phalange_angles[i]])
