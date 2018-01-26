@@ -130,19 +130,33 @@ if __name__ == "__main__":
     tibia_angles = []
     ankle_angles = []
     phalange_angles = []
-    time= np.arange(0,10,0.001)
+    time= np.arange(0,100,0.0001)
+    time_c= np.arange(1,101,0.0001)
     thigh_angles = periodize(time,splines_dic["A"])
     tibia_angles = periodize(time,splines_dic["B"])
     ankle_angles = periodize(time,splines_dic["C"])
-    print thigh_angles 
-    print "angulos originales"
-    phalange_angles = thigh_angles
+    phalange_angles = periodize(time_c,splines_dic["D"])
+    thigh_angles_c = periodize(time_c,splines_dic["A"])
+    tibia_angles_c = periodize(time_c,splines_dic["B"])
+    ankle_angles_c = periodize(time_c,splines_dic["C"])
+    phalange_angles_c = periodize(time_c,splines_dic["D"])
+
     for i,thetha in enumerate(thigh_angles):
-        thigh_angles[i] = (thetha-90)*(3.14/180) 
+        thigh_angles[i] = -1*(thetha+90)*(3.14/180) 
     for i,thetha in enumerate(tibia_angles):
         tibia_angles[i] = (180-thetha)*(3.14/180)     
     for i,thetha in enumerate(ankle_angles):
-        ankle_angles[i] = (thetha-180)*(3.14/180)  
+        ankle_angles[i] = (thetha-180)*(3.14/180) 
+    for i,thetha in enumerate(phalange_angles):
+        phalange_angles[i] = ((thetha-15)-180)*(3.14/180) 
+    for i,thetha in enumerate(thigh_angles_c):
+        thigh_angles_c[i] = -1*(thetha+90)*(3.14/180) 
+    for i,thetha in enumerate(tibia_angles_c):
+        tibia_angles_c[i] = (180-thetha)*(3.14/180)     
+    for i,thetha in enumerate(ankle_angles_c):
+        ankle_angles_c[i] = (thetha-180)*(3.14/180) 
+    for i,thetha in enumerate(phalange_angles_c):
+        phalange_angles_c[i] = ((thetha-15)-180)*(3.14/180) 
     l_leg = LeftLegSkill()
     r_leg = RightLegSkill()
 
@@ -154,10 +168,12 @@ if __name__ == "__main__":
     print ankle_angles
     print len(thigh_angles)
     print len(phalange_angles)
+    rate = rospy.Rate(10000)
     while not rospy.is_shutdown():
         for i,thetha in enumerate(thigh_angles):
             l_leg.set_joint_states([thigh_angles[i],0.0,0.0,tibia_angles[i],ankle_angles[i],phalange_angles[i]])
-            r_leg.set_joint_states([thigh_angles[i],0.0,0.0,tibia_angles[i],ankle_angles[i],phalange_angles[i]])
+            r_leg.set_joint_states([thigh_angles_c[i],0.0,0.0,tibia_angles_c[i],ankle_angles_c[i],phalange_angles_c[i]])
             print "ok"
+            rate.sleep()
 
 
