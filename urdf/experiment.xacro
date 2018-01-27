@@ -20,9 +20,9 @@
 
   <link name="body">
     <inertial>
-      <origin xyz="-0.003053 -0.038651 -0.019268" />
-      <mass value="0.97559947"/>
-      <inertia ixx="3.1081800"  ixy="-0.25460189"  ixz="2.0318174" iyy="6.3787776" iyz="0.16417863" izz="5.3316425" />
+      <origin xyz="0 0 0" />
+      <mass value="0.8"/>
+      <xacro:cuboid_inertia_def x="${body_large}" y="${body_width}" z="${body_height}" mass="0.8"/>
     </inertial>
     <visual>
       <!--origin xyz="-0.0235 0 -0.03525" rpy="0 0 0" /-->

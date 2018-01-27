@@ -27,7 +27,7 @@ for letter in ["A","B","C","D"]:
 def periodize(t,spline_parameters):
     real_t = t % 2
     print real_t
-    return splev(real_t+4.081279275,spline_parameters) 
+    return splev(real_t+4,spline_parameters) 
 
 class LegSkill(object):
     """
@@ -138,8 +138,8 @@ if __name__ == "__main__":
     tibia_angles = []
     ankle_angles = []
     phalange_angles = []
-    time= np.arange(0,100,0.0001)
-    time_c= np.arange(1,101,0.0001)
+    time= np.arange(0,100,0.0005)
+    time_c= np.arange(1,101,0.0005)
     thigh_angles = periodize(time,splines_dic["A"])
     tibia_angles = periodize(time,splines_dic["B"])
     ankle_angles = periodize(time,splines_dic["C"])
@@ -184,6 +184,6 @@ if __name__ == "__main__":
             l_leg.set_angles([thigh_angles[i],0.0,0.0,tibia_angles[i],ankle_angles[i],phalange_angles[i]])
             r_leg.set_angles([thigh_angles_c[i],0.0,0.0,tibia_angles_c[i],ankle_angles_c[i],phalange_angles_c[i]])
             print "ok"
-            rate.sleep()
+            #rate.sleep()
 
 

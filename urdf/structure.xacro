@@ -5,7 +5,7 @@
   <xacro:property name="column_height" value="1.25" />
   <xacro:property name="cross_length" value="0.025" />
   <xacro:property name="beam_height" value="10" />
-  <xacro:property name="support_height" value="0.80" />  
+  <xacro:property name="support_height" value="1.30" />  
   <xacro:macro name="structure" params="parent child body_height body_width body_large">
   
   <joint name="fixed" type="fixed">
@@ -22,27 +22,27 @@
     <joint name="slider_to_support" type="revolute">
     <parent link="slider"/>
     <child link="support"/>
-    <origin xyz="0 0 0" rpy="0 0 0" />
+    <origin xyz="0 0 ${-1*(cross_length/2)}" rpy="0 0 0" />
     <axis xyz="0 1 0" />
     <limit effort="10" velocity="5.6548668" lower="${-90*M_PI/180}" upper="${90*M_PI/180}" />  
   </joint>
   <joint name="support_to_base_link" type="fixed">
     <parent link="support"/>
     <child link="${child}"/>
-    <origin xyz="0 0 ${-1*support_height/2}" rpy="0 0 0" />
+    <origin xyz="0 0 ${-support_height}" rpy="0 0 0" />
   </joint>
   <joint name="beam_to_slider" type="prismatic">
     <parent link="beam"/>
     <child link="slider"/>
-    <origin xyz="0 0 0" rpy="0 0 ${90*M_PI/180}" />
+    <origin xyz="0 0 ${-1*cross_length}" rpy="0 0 ${90*M_PI/180}" />
     <axis xyz="1 0 0" />
-    <limit effort="10" velocity="5.6548668" lower="3" upper="15" />  
+    <limit effort="100" velocity="50.6548668" lower="3" upper="15" />  
   </joint>
   <link name="column">
     <inertial>
-      <origin xyz="-0.003053 -0.038651 -0.019268" />
-      <mass value="0.97559947"/>
-      <inertia ixx="3.1081800"  ixy="-0.25460189"  ixz="2.0318174" iyy="6.3787776" iyz="0.16417863" izz="5.3316425" />
+      <origin xyz="0 0 0" />
+      <mass value="0.8"/>
+      <xacro:cuboid_inertia_def x="${cross_length}" y="${cross_length}" z="${column_height}" mass="0.8"/>
     </inertial>
     <visual>
       <!--origin xyz="-0.0235 0 -0.03525" rpy="0 0 0" /-->
@@ -59,9 +59,9 @@
   </link>
     <link name="slider">
     <inertial>
-      <origin xyz="-0.003053 -0.038651 -0.019268" />
-      <mass value="0.97559947"/>
-      <inertia ixx="3.1081800"  ixy="-0.25460189"  ixz="2.0318174" iyy="6.3787776" iyz="0.16417863" izz="5.3316425" />
+      <origin xyz="0 0 0" />
+      <mass value="0.1"/>
+      <xacro:cuboid_inertia_def x="${cross_length}" y="${cross_length}" z="${cross_length}" mass="0.1"/>
     </inertial>
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
@@ -77,17 +77,18 @@
   </link>
     <link name="support">
     <inertial>
-      <origin xyz="-0.003053 -0.038651 -0.019268" />
-      <mass value="0.97559947"/>
-      <inertia ixx="3.1081800"  ixy="-0.25460189"  ixz="2.0318174" iyy="6.3787776" iyz="0.16417863" izz="5.3316425" />
+      <origin xyz="0 0 ${-1*support_height/2}" />
+      <mass value="0.8"/>
+      <xacro:cuboid_inertia_def x="${cross_length}" y="${cross_length}" z="${support_height}" mass="0.8"/>
     </inertial>
     <visual>
-      <origin xyz="0 0 0" rpy="0 0 0" />
+      <origin xyz="0 0 ${-1*support_height/2}" rpy="0 0 0" />
       <geometry>
         <box size="${cross_length} ${cross_length} ${support_height}" />
       </geometry>
     </visual>
     <collision>
+      <origin xyz="0 0 ${-1*support_height/2}" rpy="0 0 0" />
       <geometry>
         <box size="${cross_length} ${cross_length} ${support_height}" />
       </geometry>
@@ -95,9 +96,9 @@
   </link>
     <link name="beam">
     <inertial>
-      <origin xyz="-0.003053 -0.038651 -0.019268" />
-      <mass value="0.97559947"/>
-      <inertia ixx="3.1081800"  ixy="-0.25460189"  ixz="2.0318174" iyy="6.3787776" iyz="0.16417863" izz="5.3316425" />
+      <origin xyz="0 ${beam_height/2} 0" />
+      <mass value="0.8"/>
+      <xacro:cuboid_inertia_def x="${cross_length}" y="${beam_height}" z="${cross_length}" mass="0.8"/>
     </inertial>
     <visual>
       <!--origin xyz="-0.0235 0 -0.03525" rpy="0 0 0" /-->
