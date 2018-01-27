@@ -5,7 +5,7 @@
   <xacro:property name="column_height" value="1.25" />
   <xacro:property name="cross_length" value="0.025" />
   <xacro:property name="beam_height" value="10" />
-  <xacro:property name="support_height" value="0.25" />  
+  <xacro:property name="support_height" value="0.80" />  
   <xacro:macro name="structure" params="parent child body_height body_width body_large">
   
   <joint name="fixed" type="fixed">
@@ -34,9 +34,9 @@
   <joint name="beam_to_slider" type="prismatic">
     <parent link="beam"/>
     <child link="slider"/>
-    <origin xyz="0 0 0" rpy="0 0 0" />
-    <axis xyz="0 1 0" />
-    <limit effort="10" velocity="5.6548668" lower="0" upper="5" />  
+    <origin xyz="0 0 0" rpy="0 0 ${90*M_PI/180}" />
+    <axis xyz="1 0 0" />
+    <limit effort="10" velocity="5.6548668" lower="3" upper="15" />  
   </joint>
   <link name="column">
     <inertial>
@@ -57,7 +57,24 @@
       </geometry>
     </collision>
   </link>
-    <link name="slider"/>
+    <link name="slider">
+    <inertial>
+      <origin xyz="-0.003053 -0.038651 -0.019268" />
+      <mass value="0.97559947"/>
+      <inertia ixx="3.1081800"  ixy="-0.25460189"  ixz="2.0318174" iyy="6.3787776" iyz="0.16417863" izz="5.3316425" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="${cross_length} ${cross_length} ${cross_length}" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="${cross_length} ${cross_length} ${cross_length}" />
+      </geometry>
+    </collision>
+  </link>
     <link name="support">
     <inertial>
       <origin xyz="-0.003053 -0.038651 -0.019268" />
