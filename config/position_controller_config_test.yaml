@@ -4,62 +4,62 @@ joint_state_controller:
 
 # Left arm controller
 l_pelvis_joint_position_controller:
-    type: effort_controllers/JointPositionController
+    type: position_controllers/JointPositionController
     joint: l_pelvis_joint
     pid: {p: 100.0, i: 0.01, d: 10.0}
 
 l_thigh_pitch_joint_position_controller:
-    type: effort_controllers/JointPositionController
+    type: position_controllers/JointPositionController
     joint: l_thigh_pitch_joint
     pid: {p: 100.0, i: 0.01, d: 10.0}
 
 l_thigh_yaw_joint_position_controller:
-    type: effort_controllers/JointPositionController
+    type: position_controllers/JointPositionController
     joint: l_thigh_yaw_joint
     pid: {p: 100.0, i: 0.01, d: 10.0}
 
 l_tibia_joint_position_controller:
-    type: effort_controllers/JointPositionController
+    type: position_controllers/JointPositionController
     joint: l_tibia_joint
     pid: {p: 100.0, i: 0.01, d: 10.0}
 
 l_ankle_joint_position_controller:
-    type: effort_controllers/JointPositionController
+    type: position_controllers/JointPositionController
     joint: l_ankle_joint
     pid: {p: 100.0, i: 0.01, d: 10.0}
 
 l_phalange_joint_position_controller:
-    type: effort_controllers/JointPositionController
+    type: position_controllers/JointPositionController
     joint: l_phalange_joint
     pid: {p: 100.0, i: 0.01, d: 10.0}
 
 r_pelvis_joint_position_controller:
-    type: effort_controllers/JointPositionController
+    type: position_controllers/JointPositionController
     joint: r_pelvis_joint
     pid: {p: 100.0, i: 0.01, d: 10.0}
 
 r_thigh_pitch_joint_position_controller:
-    type: effort_controllers/JointPositionController
+    type: position_controllers/JointPositionController
     joint: r_thigh_pitch_joint
     pid: {p: 100.0, i: 0.01, d: 10.0}
 
 r_thigh_yaw_joint_position_controller:
-    type: effort_controllers/JointPositionController
+    type: position_controllers/JointPositionController
     joint: r_thigh_yaw_joint
     pid: {p: 100.0, i: 0.01, d: 10.0}
 
 r_tibia_joint_position_controller:
-    type: effort_controllers/JointPositionController
+    type: position_controllers/JointPositionController
     joint: r_tibia_joint
     pid: {p: 100.0, i: 0.01, d: 10.0}
 
 r_ankle_joint_position_controller:
-    type: effort_controllers/JointPositionController
+    type: position_controllers/JointPositionController
     joint: r_ankle_joint
     pid: {p: 100.0, i: 0.01, d: 10.0}
 
 r_phalange_joint_position_controller:
-    type: effort_controllers/JointPositionController
+    type: position_controllers/JointPositionController
     joint: r_phalange_joint
     pid: {p: 100.0, i: 0.01, d: 10.0}
 

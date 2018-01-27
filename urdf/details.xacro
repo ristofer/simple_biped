@@ -1,0 +1,64 @@
+<?xml version="1.0" ?>
+<robot
+  xmlns:xacro="http://www.ros.org/wiki/xacro"
+  name="details"> 
+  <xacro:macro name="details" params="parent body_height body_width body_large">
+ <link name="neck">
+    <inertial>
+      <origin xyz="-0.003053 -0.038651 -0.019268" />
+      <mass value="0.97559947"/>
+      <inertia ixx="3.1081800"  ixy="-0.25460189"  ixz="2.0318174" iyy="6.3787776" iyz="0.16417863" izz="5.3316425" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <!--origin xyz="-0.0235 0 -0.03525" rpy="0 0 0" /-->
+      <geometry>
+        <box size="${body_large/7} ${body_width/7} ${body_height/7}" />
+      </geometry>
+    </visual>
+  </link>
+    <link name="head">
+    <inertial>
+      <origin xyz="-0.003053 -0.038651 -0.019268" />
+      <mass value="0.97559947"/>
+      <inertia ixx="3.1081800"  ixy="-0.25460189"  ixz="2.0318174" iyy="6.3787776" iyz="0.16417863" izz="5.3316425" />
+    </inertial>
+    <visual>
+      <origin xyz="${body_large*0.5/2} 0 0" rpy="0 0 0" />
+      <!--origin xyz="-0.0235 0 -0.03525" rpy="0 0 0" /-->
+      <geometry>
+        <box size="${body_large*0.5} ${body_width*0.8} ${body_height*0.6}" />
+      </geometry>
+    </visual>
+  </link>
+  <link name="tail">
+    <inertial>
+      <origin xyz="-0.003053 -0.038651 -0.019268" />
+      <mass value="0.97559947"/>
+      <inertia ixx="3.1081800"  ixy="-0.25460189"  ixz="2.0318174" iyy="6.3787776" iyz="0.16417863" izz="5.3316425" />
+    </inertial>
+    <visual>
+      <origin xyz="-0.250 0 0" rpy="0 ${-M_PI/2} 0" />
+      <!--origin xyz="-0.0235 0 -0.03525" rpy="0 0 0" /-->
+      <geometry>
+        <mesh filename="package://simple_biped/cone.stl" scale="0.005 0.005 0.005"/>
+      </geometry>
+    </visual>
+  </link>
+  <joint name="body_to_tail" type="fixed">
+    <parent link="${parent}"/>
+    <child link="tail"/>
+    <origin xyz="${-body_large/2} 0 0" rpy="0 0 0" />
+  </joint>
+ <joint name="body_to_neck" type="fixed">
+    <parent link="${parent}"/>
+    <child link="neck"/>
+    <origin xyz="${body_large/2} 0 ${body_height/3}" rpy="0 0 0" />
+  </joint>
+  <joint name="neck_to_head" type="fixed">
+    <parent link="neck"/>
+    <child link="head"/>
+    <origin xyz="${body_large/14} 0 0" rpy="0 0 0" />
+  </joint>
+</xacro:macro>
+</robot>
