@@ -8,15 +8,11 @@
 
    <node launch-prefix="xterm -T 'Gazebo controllers' -e" name="bender_controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" ns="/"
   args="joint_state_controller
-        l_pelvis_joint_position_controller
         l_thigh_pitch_joint_position_controller
-        l_thigh_yaw_joint_position_controller
         l_tibia_joint_position_controller
         l_ankle_joint_position_controller
         l_phalange_joint_position_controller
-        r_pelvis_joint_position_controller
         r_thigh_pitch_joint_position_controller
-        r_thigh_yaw_joint_position_controller
         r_tibia_joint_position_controller
         r_ankle_joint_position_controller
         r_phalange_joint_position_controller
