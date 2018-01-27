@@ -16,6 +16,13 @@
         <box size="${body_large/7} ${body_width/7} ${body_height/7}" />
       </geometry>
     </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <!--origin xyz="-0.0235 0 -0.03525" rpy="0 0 0" /-->
+      <geometry>
+        <box size="${body_large/7} ${body_width/7} ${body_height/7}" />
+      </geometry>
+    </collision>
   </link>
     <link name="head">
     <inertial>
@@ -30,6 +37,13 @@
         <box size="${body_large*0.5} ${body_width*0.8} ${body_height*0.6}" />
       </geometry>
     </visual>
+    <collision>
+      <origin xyz="${body_large*0.5/2} 0 0" rpy="0 0 0" />
+      <!--origin xyz="-0.0235 0 -0.03525" rpy="0 0 0" /-->
+      <geometry>
+        <box size="${body_large*0.5} ${body_width*0.8} ${body_height*0.6}" />
+      </geometry>
+    </collision>
   </link>
   <link name="tail">
     <inertial>
@@ -44,6 +58,13 @@
         <mesh filename="package://simple_biped/cone.stl" scale="0.005 0.005 0.005"/>
       </geometry>
     </visual>
+    <collision>
+      <origin xyz="-0.250 0 0" rpy="0 ${-M_PI/2} 0" />
+      <!--origin xyz="-0.0235 0 -0.03525" rpy="0 0 0" /-->
+      <geometry>
+        <mesh filename="package://simple_biped/cone.stl" scale="0.005 0.005 0.005"/>
+      </geometry>
+    </collision>
   </link>
   <joint name="body_to_tail" type="fixed">
     <parent link="${parent}"/>

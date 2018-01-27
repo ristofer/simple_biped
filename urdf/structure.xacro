@@ -42,7 +42,7 @@
     <inertial>
       <origin xyz="0 0 0" />
       <mass value="0.8"/>
-      <xacro:cuboid_inertia_def x="${cross_length}" y="${cross_length}" z="${column_height}" mass="0.8"/>
+      <xacro:cuboid_inertia_def x="${cross_length}" y="${cross_length}" z="${column_height}" mass="100000"/>
     </inertial>
     <visual>
       <!--origin xyz="-0.0235 0 -0.03525" rpy="0 0 0" /-->
@@ -52,6 +52,7 @@
       </geometry>
     </visual>
     <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
         <box size="${cross_length} ${cross_length} ${column_height}" />
       </geometry>
@@ -61,7 +62,7 @@
     <inertial>
       <origin xyz="0 0 0" />
       <mass value="0.1"/>
-      <xacro:cuboid_inertia_def x="${cross_length}" y="${cross_length}" z="${cross_length}" mass="0.1"/>
+      <xacro:cuboid_inertia_def x="${cross_length}" y="${cross_length}" z="${cross_length}" mass="100000"/>
     </inertial>
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
@@ -79,7 +80,7 @@
     <inertial>
       <origin xyz="0 0 ${-1*support_height/2}" />
       <mass value="0.8"/>
-      <xacro:cuboid_inertia_def x="${cross_length}" y="${cross_length}" z="${support_height}" mass="0.8"/>
+      <xacro:cuboid_inertia_def x="${cross_length}" y="${cross_length}" z="${support_height}" mass="100"/>
     </inertial>
     <visual>
       <origin xyz="0 0 ${-1*support_height/2}" rpy="0 0 0" />
@@ -98,7 +99,7 @@
     <inertial>
       <origin xyz="0 ${beam_height/2} 0" />
       <mass value="0.8"/>
-      <xacro:cuboid_inertia_def x="${cross_length}" y="${beam_height}" z="${cross_length}" mass="0.8"/>
+      <xacro:cuboid_inertia_def x="${cross_length}" y="${beam_height}" z="${cross_length}" mass="100000"/>
     </inertial>
     <visual>
       <!--origin xyz="-0.0235 0 -0.03525" rpy="0 0 0" /-->
@@ -108,6 +109,7 @@
       </geometry>
     </visual>
     <collision>
+      <origin xyz="0 ${beam_height/2} 0" rpy="0 0 0" />
       <geometry>
         <box size="${cross_length} ${beam_height} ${cross_length} " />
       </geometry>
