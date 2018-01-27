@@ -2,10 +2,10 @@
 <robot
   xmlns:xacro="http://www.ros.org/wiki/xacro"
   name="structure"> 
-  <xacro:property name="column_height" value="1.06" />
+  <xacro:property name="column_height" value="1.25" />
   <xacro:property name="cross_length" value="0.025" />
-  <xacro:property name="beam_height" value="1.006" />
-  <xacro:property name="support_height" value="1.205" />  
+  <xacro:property name="beam_height" value="10" />
+  <xacro:property name="support_height" value="0.25" />  
   <xacro:macro name="structure" params="parent child body_height body_width body_large">
   
   <joint name="fixed" type="fixed">
@@ -13,21 +13,30 @@
     <child link="column"/>
     <origin xyz="0 0 0" rpy="0 0 0" />
   </joint>
-  <joint name="column_to_beam" type="continuous">
+  <joint name="column_to_beam" type="fixed">
     <parent link="column"/>
     <child link="beam"/>
     <axis xyz="0 0 1"/>
     <origin xyz="0 0 ${column_height/2}" rpy="0 0 0" />
   </joint>
-    <joint name="beam_to_support" type="fixed">
-    <parent link="beam"/>
+    <joint name="slider_to_support" type="revolute">
+    <parent link="slider"/>
     <child link="support"/>
-    <origin xyz="0 ${beam_height} ${-1*support_height/2}" rpy="0 0 0" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 1 0" />
+    <limit effort="10" velocity="5.6548668" lower="${-90*M_PI/180}" upper="${90*M_PI/180}" />  
   </joint>
   <joint name="support_to_base_link" type="fixed">
     <parent link="support"/>
     <child link="${child}"/>
     <origin xyz="0 0 ${-1*support_height/2}" rpy="0 0 0" />
+  </joint>
+  <joint name="beam_to_slider" type="prismatic">
+    <parent link="beam"/>
+    <child link="slider"/>
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 1 0" />
+    <limit effort="10" velocity="5.6548668" lower="0" upper="5" />  
   </joint>
   <link name="column">
     <inertial>
@@ -48,6 +57,7 @@
       </geometry>
     </collision>
   </link>
+    <link name="slider"/>
     <link name="support">
     <inertial>
       <origin xyz="-0.003053 -0.038651 -0.019268" />
