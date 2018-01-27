@@ -24,6 +24,11 @@
    <xacro:property name="phalange_height" value="0.0745" />
  <xacro:property name="phalange_width" value="0.020" />
  <xacro:property name="phalange_large" value="0.020" />
+   <!-- Friction model from "Characterization and modeling of a Dynamixel servo" by Arno Mensin (model AX12, better than nothing) -->
+  <!-- Damping N.m.s/rad --> 
+  <xacro:property name="dxl_damping" value="0.15" />
+  <!-- Friccion N.m -->
+  <xacro:property name="dxl_friction" value="0.3" />
   <xacro:macro name="cuboid_inertia_def" params="x y z mass">
     <inertia 
       iyy="${mass*(z*z+x*x)/12.0}"
@@ -159,20 +164,22 @@
     </collision>
   </link>
   
-  <joint name="${side}_pelvis_joint" type="revolute">
+  <joint name="${side}_pelvis_joint" type="fixed">
     <parent link="${parent}"/>
     <child link="${side}_pelvis"/>
     <origin xyz="${-body_large/6} ${reflect*body_width/2} ${body_height/5}" rpy="0 0 0" />
     <axis xyz="0 0 1" />
-    <limit effort="4" velocity="1" lower="0" upper="0.01" />
+    <!--limit effort="1" velocity="4" lower="0" upper="0.01" /-->
+    <!--dynamics damping="${dxl_damping}" friction="${dxl_friction}" /-->
   </joint>
   
-  <joint name="${side}_thigh_yaw_joint" type="revolute">
+  <joint name="${side}_thigh_yaw_joint" type="fixed">
     <parent link="${side}_pelvis"/>
     <child link="${side}_thigh_yaw"/>
     <origin xyz="0 ${reflect*pelvis_width/2} ${-1*pelvis_height}" rpy="0 0 0" />
     <axis xyz="0 0 1" />
-    <limit effort="4" velocity="1" lower="0" upper="0.01" />
+    <!--limit effort="1" velocity="4" lower="0" upper="0.01" /-->
+    <!--dynamics damping="${dxl_damping}" friction="${dxl_friction}" /-->
   </joint>
 
   <joint name="${side}_thigh_pitch_joint" type="revolute">
@@ -180,7 +187,8 @@
     <child link="${side}_thigh"/>
     <origin xyz="0 0 0" rpy="0 0 0" />
     <axis xyz="0 1 0" />
-    <limit effort="4" velocity="1" lower="${-75*M_PI/180}" upper="${45*M_PI/180}"  />
+    <limit effort="1" velocity="4" lower="${-75*M_PI/180}" upper="${45*M_PI/180}"  />
+    <!--dynamics damping="${dxl_damping}" friction="${dxl_friction}" /-->
   </joint>
 
   <joint name="${side}_tibia_joint" type="revolute">
@@ -188,7 +196,8 @@
     <child link="${side}_tibia"/>
     <origin xyz="0 0 ${-1*thigh_height}" rpy="0 0 0" />
     <axis xyz="0 1 0" />
-    <limit effort="4" velocity="1" lower="${0*M_PI/180}" upper="${150*M_PI/180}" />
+    <limit effort="1" velocity="4" lower="${0*M_PI/180}" upper="${150*M_PI/180}" />
+    <!--dynamics damping="${dxl_damping}" friction="${dxl_friction}" /-->
   </joint>
 
   <joint name="${side}_ankle_joint" type="revolute">
@@ -196,7 +205,8 @@
     <child link="${side}_ankle"/>
     <origin xyz="0 0 ${-1*tibia_height}" rpy="0 0 0" />
     <axis xyz="0 1 0" />
-    <limit effort="4" velocity="1" lower="${-90*M_PI/180}" upper="${0*M_PI/180}" />
+    <limit effort="1" velocity="4" lower="${-90*M_PI/180}" upper="${0*M_PI/180}" />
+    <!--dynamics damping="${dxl_damping}" friction="${dxl_friction}" /-->
   </joint>
 
   <joint name="${side}_phalange_joint" type="revolute">
@@ -204,7 +214,8 @@
     <child link="${side}_phalange"/>
     <origin xyz="0 0 ${-1*ankle_height}" rpy="0 0 0" />
     <axis xyz="0 1 0" />
-    <limit effort="4" velocity="1" lower="${-45*M_PI/180}" upper="0" />
+    <limit effort="1" velocity="4" lower="${-45*M_PI/180}" upper="0" />
+    <!--dynamics damping="${dxl_damping}" friction="${dxl_friction}" /-->
   </joint>
 </xacro:macro>
 </robot>
