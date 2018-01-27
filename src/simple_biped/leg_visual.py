@@ -90,7 +90,7 @@ class LegSkill(object):
         rospy.loginfo("Creating joint command publishers")
         self._pub_joints={}
         for j in self.joint_names:
-            p=rospy.Publisher(j+"_position_controller/command",Float64)
+            p=rospy.Publisher(j+"_position_controller/command",Float64,queue_size=10)
             self._pub_joints[j]=p
 
 
@@ -139,7 +139,7 @@ if __name__ == "__main__":
     ankle_angles = []
     phalange_angles = []
     time= np.arange(0,100,0.0005)
-    time_c= np.arange(0.5,100.5,0.0005)
+    time_c= np.arange(1,101,0.0005)
     thigh_angles = periodize(time,splines_dic["A"])
     tibia_angles = periodize(time,splines_dic["B"])
     ankle_angles = periodize(time,splines_dic["C"])
@@ -169,14 +169,14 @@ if __name__ == "__main__":
     r_leg = RightLegSkill()
 
     l_leg.setup()
-
-    print r_leg.setup()
+    r_leg.setup()
+    #print r_leg.setup()
     print l_leg.get_joint_names()
     print r_leg.get_joint_names()
     print ankle_angles
     print len(thigh_angles)
     print len(phalange_angles)
-    rate = rospy.Rate(100000000)
+    rate = rospy.Rate(100)
     while not rospy.is_shutdown():
         for i,thetha in enumerate(thigh_angles):
             #l_leg.set_joint_states([thigh_angles[i],0.0,0.0,tibia_angles[i],ankle_angles[i],phalange_angles[i]])
