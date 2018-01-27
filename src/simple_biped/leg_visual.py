@@ -139,7 +139,7 @@ if __name__ == "__main__":
     ankle_angles = []
     phalange_angles = []
     time= np.arange(0,100,0.0005)
-    time_c= np.arange(1,101,0.0005)
+    time_c= np.arange(0.5,100.5,0.0005)
     thigh_angles = periodize(time,splines_dic["A"])
     tibia_angles = periodize(time,splines_dic["B"])
     ankle_angles = periodize(time,splines_dic["C"])
