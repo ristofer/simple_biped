@@ -18,6 +18,7 @@ from trajectory_msgs.msg import JointTrajectoryPoint
 from control_msgs.msg import (FollowJointTrajectoryAction, FollowJointTrajectoryGoal)
 from std_msgs.msg import Float64
 from scipy.interpolate import UnivariateSpline, splev, splrep
+import matplotlib.pyplot as plt
 
 splines_dic = dict()
 for letter in ["A","B","C","D"]:
@@ -178,6 +179,8 @@ if __name__ == "__main__":
     print len(thigh_angles)
     print len(phalange_angles)
     rate = rospy.Rate(100)
+    plt.plot(time, ankle_angles, 'g', lw=3)
+    plt.show()
     while not rospy.is_shutdown():
         for i,thetha in enumerate(thigh_angles):
             l_leg.set_angles([ankle_angles[i],phalange_angles[i],thigh_angles[i],tibia_angles[i]])

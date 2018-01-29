@@ -5,7 +5,7 @@
   <xacro:property name="column_height" value="1.25" />
   <xacro:property name="cross_length" value="0.025" />
   <xacro:property name="beam_height" value="20" />
-  <xacro:property name="support_height" value="1.35" />  
+  <xacro:property name="support_height" value="1.26" />  
   <xacro:macro name="structure" params="parent child body_height body_width body_large">
 
     <xacro:joint_transmission joint="slider_to_support"/>
