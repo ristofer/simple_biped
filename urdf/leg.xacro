@@ -145,8 +145,8 @@
   <link name="${side}_phalange" >
     <inertial>
       <origin xyz="0 0 ${-1*phalange_height/2}" />
-      <mass value="0.2"/>
-      <xacro:cuboid_inertia_def x="${phalange_large}" y="${phalange_width}" z="${phalange_height}" mass="0.2"/>
+      <mass value="0.1"/>
+      <xacro:cuboid_inertia_def x="${phalange_large}" y="${phalange_width}" z="${phalange_height}" mass="0.1"/>
     </inertial>
     <visual>
       <origin xyz="0 0 ${-1*phalange_height/2}" rpy="0 0 0" />

@@ -8,7 +8,7 @@ joint_state_controller:
 l_thigh_pitch_joint_position_controller:
     type: position_controllers/JointPositionController
     joint: l_thigh_pitch_joint
-    pid: {p: 100.0, i: 0.1, d: 10.0}
+    pid: {p: 53000, i: 390, d: 10.0}
 
 
 
@@ -20,19 +20,19 @@ l_tibia_joint_position_controller:
 l_ankle_joint_position_controller:
     type: position_controllers/JointPositionController
     joint: l_ankle_joint
-    pid: {p: 100.0, i: 0.1, d: 10.0}
+    pid: {p: 26000.0, i: 120, d: 120}
 
 l_phalange_joint_position_controller:
     type: position_controllers/JointPositionController
     joint: l_phalange_joint
-    pid: {p: 100.0, i: 0.1, d: 10.0}
+    pid: {p: 200, i: 200, d: 0}
 
 
 
 r_thigh_pitch_joint_position_controller:
     type: position_controllers/JointPositionController
     joint: r_thigh_pitch_joint
-    pid: {p: 100.0, i: 0.1, d: 10.0}
+    pid: {p: 53000, i: 390, d: 10.0}
 
 
 
@@ -44,12 +44,12 @@ r_tibia_joint_position_controller:
 r_ankle_joint_position_controller:
     type: position_controllers/JointPositionController
     joint: r_ankle_joint
-    pid: {p: 100.0, i: 0.1, d: 10.0}
+    pid: {p: 26000.0, i: 120, d: 120}
 
 r_phalange_joint_position_controller:
     type: position_controllers/JointPositionController
     joint: r_phalange_joint
-    pid: {p: 100.0, i: 0.1, d: 10.0}
+    pid: {p: 200, i: 200, d: 0}
 
 #  state_publish_rate:  25            # Override default
 #  action_monitor_rate: 30            # Override default

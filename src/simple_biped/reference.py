@@ -18,7 +18,7 @@ from trajectory_msgs.msg import JointTrajectoryPoint
 from control_msgs.msg import (FollowJointTrajectoryAction, FollowJointTrajectoryGoal)
 from std_msgs.msg import Float64
 from scipy.interpolate import UnivariateSpline, splev, splrep
-
+import matplotlib.pyplot as plt
 splines_dic = dict()
 for letter in ["A","B","C","D"]:
     spline_file = np.load("spline_"+letter+".npz")
@@ -39,7 +39,6 @@ class LegSkill(object):
     JOINT_NAMES_BASE = ["thigh_pitch_joint", "thigh_yaw_joint",
       "pelvis_joint", "tibia_joint", "ankle_joint",
       "phalange_joint"]
-    JOINT_NAMES_BASE= ['ankle_joint', 'phalange_joint', 'thigh_pitch_joint', 'tibia_joint']
     """list of str: Joints names"""
 
     NUM_JOINTS = 6
@@ -75,7 +74,7 @@ class LegSkill(object):
         self.joint_names = ["{0}_{1}".format(self.side, joint)
             for joint in LegSkill.JOINT_NAMES_BASE]
         # Arm topics
-        self._joint_state_topic = "/{0}_joint_states_reference".format(self.name)
+        self._joint_state_topic = "/joint_states_reference"
         self._jta_topic = "/{0}_controller/follow_joint_trajectory".format(self.name)
         # Empty joint state message
         self._joint_state_lock = Lock()
@@ -89,15 +88,15 @@ class LegSkill(object):
         self._jta_client = None
         self._joint_state_pub = None
         rospy.loginfo("Creating joint command publishers")
-        self._pub_joints={}
-        for j in self.joint_names:
-            p=rospy.Publisher(j+"_position_controller/command",Float64,queue_size=10)
-            self._pub_joints[j]=p
+        #self._pub_joints={}
+        #for j in self.joint_names:
+         #   p=rospy.Publisher(j+"_position_controller/command",Float64,queue_size=10)
+         #   self._pub_joints[j]=p
 
 
     def setup(self):
 
-        self._joint_state_pub = rospy.Publisher(self._joint_state_topic,JointState,queue_size=1)
+        self._joint_state_pub = rospy.Publisher(self._joint_state_topic,JointState,queue_size=10)
 
         rospy.sleep(0.1)
         return True
@@ -118,9 +117,10 @@ class LegSkill(object):
         self._joint_state_pub.publish(msg)
         print "set joint state"
 
-    def set_angles(self,angles):
-        for i,angle in enumerate(angles):
-            self._pub_joints[self.joint_names[i]].publish(angle)
+    
+    #def set_angles(self,angles):
+     #   for i,angle in enumerate(angles):
+     #       self._pub_joints[self.joint_names[i]].publish(angle)
 
 class LeftLegSkill(LegSkill):
     """Left arm control using using joint trajectory action"""
@@ -134,7 +134,7 @@ class RightLegSkill(LegSkill):
     def __init__(self):
         super(RightLegSkill, self).__init__(LegSkill.R_LEG)
 if __name__ == "__main__":
-    rospy.init_node("grossi_saurio")
+    rospy.init_node("reference")
     thigh_angles = []
     tibia_angles = []
     ankle_angles = []
@@ -177,13 +177,15 @@ if __name__ == "__main__":
     print ankle_angles
     print len(thigh_angles)
     print len(phalange_angles)
-    rate = rospy.Rate(100)
+    rate = rospy.Rate(10000)
+    plt.plot(time, thigh_angles, 'g', lw=3)
+    plt.show()
     while not rospy.is_shutdown():
         for i,thetha in enumerate(thigh_angles):
-            l_leg.set_angles([ankle_angles[i],phalange_angles[i],thigh_angles[i],tibia_angles[i]])
-            r_leg.set_angles([ankle_angles_c[i],phalange_angles_c[i],thigh_angles_c[i],tibia_angles_c[i]])
-            l_leg.set_joint_states([ankle_angles[i],phalange_angles[i],thigh_angles[i],tibia_angles[i]])
-            r_leg.set_joint_states([ankle_angles_c[i],phalange_angles_c[i],thigh_angles_c[i],tibia_angles_c[i]])
+            l_leg.set_joint_states([thigh_angles[i],0.0,0.0,tibia_angles[i],ankle_angles[i],phalange_angles[i]])
+            r_leg.set_joint_states([thigh_angles_c[i],0.0,0.0,tibia_angles_c[i],ankle_angles_c[i],phalange_angles_c[i]])
+            #l_leg.set_angles([thigh_angles[i],0.0,0.0,tibia_angles[i],ankle_angles[i],phalange_angles[i]])
+            #r_leg.set_angles([thigh_angles_c[i],0.0,0.0,tibia_angles_c[i],ankle_angles_c[i],phalange_angles_c[i]])
             print "ok"
             rospy.sleep(0.0005)
 

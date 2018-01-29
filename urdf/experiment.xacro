@@ -45,8 +45,8 @@
   <!-- Left Arm -->
   <xacro:structure parent="world" child="base_link" body_height="${body_height}" body_width="${body_width}" body_large="${body_large}"/>
   <xacro:details parent="body" body_height="${body_height}" body_width="${body_width}" body_large="${body_large}"/>
-  <xacro:leg side="l" parent="body" reflect="-1" body_height="${body_height}" body_width="${body_width}" body_large="${body_large}"/>
+  <xacro:leg side="l" parent="body" reflect="1" body_height="${body_height}" body_width="${body_width}" body_large="${body_large}"/>
   <!-- Right Arm -->
-   <xacro:leg side="r" parent="body" reflect="1" body_height="${body_height}" body_width="${body_width}" body_large="${body_large}"/>
+   <xacro:leg side="r" parent="body" reflect="-1" body_height="${body_height}" body_width="${body_width}" body_large="${body_large}"/>
 
 </robot>

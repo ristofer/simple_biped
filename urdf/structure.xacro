@@ -5,7 +5,7 @@
   <xacro:property name="column_height" value="1.25" />
   <xacro:property name="cross_length" value="0.025" />
   <xacro:property name="beam_height" value="20" />
-  <xacro:property name="support_height" value="1.00" />  
+  <xacro:property name="support_height" value="1.35" />  
   <xacro:macro name="structure" params="parent child body_height body_width body_large">
 
     <xacro:joint_transmission joint="slider_to_support"/>
@@ -45,7 +45,7 @@
   <joint name="beam_to_slider" type="fixed">
     <parent link="beam"/>
     <child link="slider"/>
-    <origin xyz="0 5 ${-1*cross_length}" rpy="0 0 0"/>
+    <origin xyz="0 2 ${-1*cross_length}" rpy="0 0 0"/>
     <axis xyz="1 0 0" />
     <!--limit effort="3" velocity="2" lower="5" upper="20" /-->  
   </joint>
