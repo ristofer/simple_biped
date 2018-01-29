@@ -194,7 +194,7 @@
     <child link="${side}_tibia"/>
     <origin xyz="0 0 ${-1*thigh_height}" rpy="0 0 0" />
     <axis xyz="0 1 0" />
-    <limit effort="4" velocity="4" lower="${0*M_PI/180}" upper="${150*M_PI/180}" />
+    <limit effort="8" velocity="6" lower="${0*M_PI/180}" upper="${150*M_PI/180}" />
     <!--dynamics damping="${dxl_damping}" friction="${dxl_friction}" /-->
   </joint>
 
@@ -203,7 +203,7 @@
     <child link="${side}_ankle"/>
     <origin xyz="0 0 ${-1*tibia_height}" rpy="0 0 0" />
     <axis xyz="0 1 0" />
-    <limit effort="4" velocity="4" lower="${-90*M_PI/180}" upper="${0*M_PI/180}" />
+    <limit effort="8" velocity="6" lower="${-90*M_PI/180}" upper="${0*M_PI/180}" />
     <!--dynamics damping="${dxl_damping}" friction="${dxl_friction}" /-->
   </joint>
 
