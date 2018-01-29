@@ -2,7 +2,7 @@
 <robot
   xmlns:xacro="http://www.ros.org/wiki/xacro"
   name="structure"> 
-  <xacro:property name="column_height" value="1.25" />
+  <xacro:property name="column_height" value="2" />
   <xacro:property name="cross_length" value="0.025" />
   <xacro:property name="beam_height" value="7" />
   <xacro:property name="support_height" value="1.26" />  
@@ -28,7 +28,7 @@
     <parent link="column"/>
     <child link="beam"/>
     <axis xyz="0 0 1"/>
-    <origin xyz="0 0 ${column_height/2}" rpy="0 0 0" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
     <limit effort="3" velocity="3" lower="1" upper="2" />  
   </joint>
     <joint name="slider_to_support" type="fixed">
@@ -46,7 +46,7 @@
   <joint name="beam_to_slider" type="prismatic">
     <parent link="beam"/>
     <child link="slider"/>
-    <origin xyz="0 5 ${-1*cross_length}" rpy="0 0 ${90*M_PI/180}"/>
+    <origin xyz="0 0 0" rpy="0 0 ${90*M_PI/180}"/>
     <axis xyz="1 0 0" />
     <limit effort="3" velocity="2" lower="5" upper="20" />  
   </joint>
