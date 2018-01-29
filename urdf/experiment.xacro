@@ -8,7 +8,7 @@
  <xacro:property name="body_height" value="0.106" />
  <xacro:property name="body_width" value="0.100" />
  <xacro:property name="body_large" value="0.250" />
-
+<disableFixedJointLumping>true</disableFixedJointLumping>
   
   <link name="world"/>
   <link name="base_link"/>
