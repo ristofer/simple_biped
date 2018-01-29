@@ -21,14 +21,14 @@
   <xacro:property name="ankle_height" value="0.0745" />
  <xacro:property name="ankle_width" value="0.020" />
  <xacro:property name="ankle_large" value="0.020" />
-   <xacro:property name="phalange_height" value="0.1" />
+   <xacro:property name="phalange_height" value="0.08" />
  <xacro:property name="phalange_width" value="0.020" />
  <xacro:property name="phalange_large" value="0.020" />
    <!-- Friction model from "Characterization and modeling of a Dynamixel servo" by Arno Mensin (model AX12, better than nothing) -->
   <!-- Damping N.m.s/rad --> 
-  <xacro:property name="dxl_damping" value="0.85" />
+  <xacro:property name="dxl_damping" value="0.5" />
   <!-- Friccion N.m -->
-  <xacro:property name="dxl_friction" value="0.9" />
+  <xacro:property name="dxl_friction" value="0.5" />
   <xacro:macro name="cuboid_inertia_def" params="x y z mass">
     <inertia 
       iyy="${mass*(z*z+x*x)/12.0}"
@@ -151,8 +151,8 @@
   <link name="${side}_phalange" >
     <inertial>
       <origin xyz="0 0 ${-1*phalange_height/2}" />
-      <mass value="2"/>
-      <xacro:cuboid_inertia_def x="${phalange_large}" y="${phalange_width}" z="${phalange_height}" mass="2"/>
+      <mass value="0.15"/>
+      <xacro:cuboid_inertia_def x="${phalange_large}" y="${phalange_width}" z="${phalange_height}" mass="0.15"/>
     </inertial>
     <visual>
       <origin xyz="0 0 ${-1*phalange_height/2}" rpy="0 0 0" />
@@ -165,14 +165,14 @@
       <geometry>
         <box size="${phalange_large} ${phalange_width} ${phalange_height}"/>
       </geometry>
-       <surface>
+       <!--surface>
         <friction>
           <ode>
             <mu>20000</mu>
             <mu2>20000</mu2>
           </ode>
         </friction>
-      </surface>
+      </surface-->
     </collision>
   </link>
   
@@ -227,7 +227,7 @@
     <origin xyz="0 0 ${-1*ankle_height}" rpy="0 0 0" />
     <axis xyz="0 1 0" />
     <limit effort="8" velocity="6" lower="${-45*M_PI/180}" upper="0" />
-    <dynamics damping="${dxl_damping}" friction="${dxl_friction}" />
+    <!--dynamics damping="${dxl_damping}" friction="${dxl_friction}" /-->
   </joint>
 </xacro:macro>
 </robot>
