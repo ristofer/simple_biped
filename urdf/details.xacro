@@ -7,10 +7,10 @@
       <provideFeedback>true</provideFeedback>
       <disableFixedJointLumping>true</disableFixedJointLumping>
     </gazebo>
-   <gazebo reference="neck_to_head">
+   <!--gazebo reference="neck_to_head">
       <provideFeedback>true</provideFeedback>
       <disableFixedJointLumping>true</disableFixedJointLumping>
-    </gazebo>
+    </gazebo-->
     <gazebo reference="body_to_neck">
       <provideFeedback>true</provideFeedback>
       <disableFixedJointLumping>true</disableFixedJointLumping>
