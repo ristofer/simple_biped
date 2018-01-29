@@ -159,7 +159,7 @@ if __name__ == "__main__":
     for i,thetha in enumerate(ankle_angles):
         ankle_angles[i] = (thetha-180)*(3.14/180) 
     for i,thetha in enumerate(phalange_angles):
-        phalange_angles[i] = ((thetha)-180)*(3.14/180) #-90*3.14/180#
+        phalange_angles[i] = -100*3.14/180#((thetha)-180)*(3.14/180) #-90*3.14/180#
     for i,thetha in enumerate(thigh_angles_c):
         thigh_angles_c[i] = -1*(thetha+90)*(3.14/180) 
     for i,thetha in enumerate(tibia_angles_c):
@@ -167,7 +167,7 @@ if __name__ == "__main__":
     for i,thetha in enumerate(ankle_angles_c):
         ankle_angles_c[i] = (thetha-180)*(3.14/180) 
     for i,thetha in enumerate(phalange_angles_c):
-        phalange_angles_c[i] = ((thetha)-180)*(3.14/180) #-90*3.14/180#
+        phalange_angles_c[i] = -100*3.14/180#((thetha)-180)*(3.14/180) #-90*3.14/180#
     l_leg = LeftLegSkill()
     r_leg = RightLegSkill()
 

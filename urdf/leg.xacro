@@ -19,8 +19,8 @@
  <xacro:property name="tibia_width" value="0.035" />
  <xacro:property name="tibia_large" value="0.045" />
   <xacro:property name="ankle_height" value="0.0745" />
- <xacro:property name="ankle_width" value="0.035" />
- <xacro:property name="ankle_large" value="0.045" />
+ <xacro:property name="ankle_width" value="0.020" />
+ <xacro:property name="ankle_large" value="0.020" />
    <xacro:property name="phalange_height" value="0.0745" />
  <xacro:property name="phalange_width" value="0.020" />
  <xacro:property name="phalange_large" value="0.020" />
