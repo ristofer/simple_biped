@@ -8,18 +8,23 @@
   <xacro:property name="support_height" value="1.30" />  
   <xacro:macro name="structure" params="parent child body_height body_width body_large">
 
-  
+      <xacro:joint_pos_transmission joint="beam_to_slider"/>
     <gazebo reference="support_to_base_link">
       <provideFeedback>true</provideFeedback>
       <disableFixedJointLumping>true</disableFixedJointLumping>
     </gazebo>
+      <gazebo reference="slider_to_support">
+      <provideFeedback>true</provideFeedback>
+      <disableFixedJointLumping>true</disableFixedJointLumping>
+    </gazebo>
+
   
   <joint name="fixed" type="fixed">
     <parent link="${parent}"/>
     <child link="column"/>
     <origin xyz="0 0 0" rpy="0 0 0" />
   </joint>
-  <joint name="column_to_beam" type="continuous">
+  <joint name="column_to_beam" type="fixed">
     <parent link="column"/>
     <child link="beam"/>
     <axis xyz="0 0 1"/>
@@ -37,12 +42,12 @@
     <child link="${child}"/>
     <origin xyz="0 0 ${-support_height}" rpy="0 0 0" />
   </joint>
-  <joint name="beam_to_slider" type="fixed">
+  <joint name="beam_to_slider" type="prismatic">
     <parent link="beam"/>
     <child link="slider"/>
     <origin xyz="0 5 ${-1*cross_length}" rpy="0 0 0"/>
     <axis xyz="1 0 0" />
-    <!--limit effort="3" velocity="2" lower="5" upper="20" /-->  
+    <limit effort="3" velocity="2" lower="5" upper="20" />  
   </joint>
   <link name="column">
     <inertial>
