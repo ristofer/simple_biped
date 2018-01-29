@@ -3,6 +3,19 @@
   xmlns:xacro="http://www.ros.org/wiki/xacro"
   name="details"> 
   <xacro:macro name="details" params="parent body_height body_width body_large">
+ <gazebo reference="body_to_tail">
+      <provideFeedback>true</provideFeedback>
+      <disableFixedJointLumping>true</disableFixedJointLumping>
+    </gazebo>
+   <gazebo reference="neck_to_head">
+      <provideFeedback>true</provideFeedback>
+      <disableFixedJointLumping>true</disableFixedJointLumping>
+    </gazebo>
+    <gazebo reference="body_to_neck">
+      <provideFeedback>true</provideFeedback>
+      <disableFixedJointLumping>true</disableFixedJointLumping>
+    </gazebo>
+
  <link name="neck">
     <inertial>
       <origin xyz="0 0 0" />
@@ -26,7 +39,7 @@
   </link>
     <link name="head">
     <inertial>
-      <origin xyz="0 0 0" />
+      <origin xyz="${body_large/4} 0 0" />
       <mass value="0.5"/>
       <xacro:cuboid_inertia_def x="${body_large/2}" y="${body_width*0.8}" z="${body_height*0.6}" mass="0.5"/>
     </inertial>
@@ -47,7 +60,7 @@
   </link>
   <link name="tail">
     <inertial>
-      <origin xyz="0 0 0" />
+      <origin xyz="-0.200 0 0" />
       <mass value="0.6"/>
       <xacro:cuboid_inertia_def x="${body_large*2}" y="${body_width}" z="${body_height/2}" mass="0.6"/>
     </inertial>

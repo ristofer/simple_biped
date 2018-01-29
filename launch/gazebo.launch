@@ -26,7 +26,7 @@
 
   <!-- Use simulation time -->
   <param name="use_sim_time" value="$(arg use_sim_time)" />
- <param name="robot_description" command="$(find xacro)/xacro.py $(arg model)" />
+ <param name="robot_description" command="$(find xacro)/xacro $(arg model)" />
   <!-- Launch Gazebo with empty world -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <arg name="use_sim_time" value="$(arg use_sim_time)"/>

@@ -7,6 +7,12 @@
   <xacro:property name="beam_height" value="20" />
   <xacro:property name="support_height" value="1.30" />  
   <xacro:macro name="structure" params="parent child body_height body_width body_large">
+
+  
+    <gazebo reference="support_to_base_link">
+      <provideFeedback>true</provideFeedback>
+      <disableFixedJointLumping>true</disableFixedJointLumping>
+    </gazebo>
   
   <joint name="fixed" type="fixed">
     <parent link="${parent}"/>
