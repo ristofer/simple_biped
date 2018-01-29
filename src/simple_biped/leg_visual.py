@@ -28,7 +28,7 @@ for letter in ["A","B","C","D"]:
 def periodize(t,spline_parameters):
     real_t = t % 2
     print real_t
-    return splev(real_t+4,spline_parameters) 
+    return splev(real_t+4,spline_parameters) + 0.05*splev(real_t+4,spline_parameters,der=1)
 
 class LegSkill(object):
     """
@@ -159,7 +159,7 @@ if __name__ == "__main__":
     for i,thetha in enumerate(ankle_angles):
         ankle_angles[i] = (thetha-180)*(3.14/180) 
     for i,thetha in enumerate(phalange_angles):
-        phalange_angles[i] = -100*3.14/180#((thetha)-180)*(3.14/180) #-90*3.14/180#
+        phalange_angles[i] = -70*3.14/180#((thetha)-180)*(3.14/180) #
     for i,thetha in enumerate(thigh_angles_c):
         thigh_angles_c[i] = -1*(thetha+90)*(3.14/180) 
     for i,thetha in enumerate(tibia_angles_c):
@@ -167,7 +167,7 @@ if __name__ == "__main__":
     for i,thetha in enumerate(ankle_angles_c):
         ankle_angles_c[i] = (thetha-180)*(3.14/180) 
     for i,thetha in enumerate(phalange_angles_c):
-        phalange_angles_c[i] = -100*3.14/180#((thetha)-180)*(3.14/180) #-90*3.14/180#
+        phalange_angles_c[i] = -70*3.14/180#-((thetha)-180)*(3.14/180) #
     l_leg = LeftLegSkill()
     r_leg = RightLegSkill()
 
