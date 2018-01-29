@@ -108,7 +108,7 @@
   </link>
     <link name="beam">
     <inertial>
-      <origin xyz="0 ${beam_height/2} 0" rpy="0 0 ${90*M_PI/180}"/>
+      <origin xyz="0 ${beam_height/2} 0" rpy="0 0 0"/>
       <mass value="8"/>
       <xacro:cuboid_inertia_def x="${cross_length}" y="${beam_height}" z="${cross_length}" mass="8"/>
     </inertial>
