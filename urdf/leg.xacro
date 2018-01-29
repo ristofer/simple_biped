@@ -224,7 +224,7 @@
   <joint name="${side}_phalange_joint" type="revolute">
     <parent link="${side}_ankle"/>
     <child link="${side}_phalange"/>
-    <origin xyz="${-1*ankle_large/2} 0 ${-1*ankle_height}" rpy="0 0 0" />
+    <origin xyz="$0 0 ${-1*ankle_height}" rpy="0 0 0" />
     <axis xyz="0 1 0" />
     <limit effort="8" velocity="6" lower="${-45*M_PI/180}" upper="0" />
     <!--dynamics damping="${dxl_damping}" friction="${dxl_friction}" /-->

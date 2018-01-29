@@ -4,19 +4,11 @@
   name="structure"> 
   <xacro:property name="column_height" value="1.25" />
   <xacro:property name="cross_length" value="0.025" />
-  <xacro:property name="beam_height" value="10" />
+  <xacro:property name="beam_height" value="5" />
   <xacro:property name="support_height" value="1.26" />  
   <xacro:macro name="structure" params="parent child body_height body_width body_large">
 
-    <xacro:joint_transmission joint="slider_to_support"/>
-    <gazebo reference="support_to_base_link">
-      <provideFeedback>true</provideFeedback>
-      <disableFixedJointLumping>true</disableFixedJointLumping>
-    </gazebo>
-      <gazebo reference="slider_to_support">
-      <provideFeedback>true</provideFeedback>
-      <disableFixedJointLumping>true</disableFixedJointLumping>
-    </gazebo>
+
 
   
   <joint name="fixed" type="fixed">
@@ -28,27 +20,16 @@
     <parent link="column"/>
     <child link="beam"/>
     <axis xyz="0 0 1"/>
-    <origin xyz="0 0 ${column_height/2}" rpy="0 0 0" />
+    <origin xyz="0 0 ${-column_height/2}" rpy="0 0 0" />
   </joint>
-    <joint name="slider_to_support" type="fixed">
-    <parent link="slider"/>
-    <child link="support"/>
-    <origin xyz="0 0 ${-1*(cross_length/2)}" rpy="0 0 0" />
-    <axis xyz="0 1 0" />
-    <!--limit effort="3" velocity="3" lower="${-90*M_PI/180}" upper="${90*M_PI/180}" /-->  
-  </joint>
-  <joint name="support_to_base_link" type="fixed">
-    <parent link="support"/>
-    <child link="${child}"/>
-    <origin xyz="0 0 ${-support_height}" rpy="0 0 0" />
-  </joint>
-  <joint name="beam_to_slider" type="fixed">
+
+  <joint name="beam_to_base_link" type="fixed">
     <parent link="beam"/>
-    <child link="slider"/>
-    <origin xyz="0 1 ${-1*cross_length}" rpy="0 0 0"/>
-    <axis xyz="1 0 0" />
-    <!--limit effort="3" velocity="2" lower="5" upper="20" /-->  
+    <child link="${child}"/>
+    <origin xyz="0 ${beam_height} 0" rpy="0 0 0" />
+    <!--limit effort="4" velocity="4" lower="0" upper="0.01" /-->
   </joint>
+
   <link name="column">
     <inertial>
       <origin xyz="0 0 0" />
@@ -69,43 +50,8 @@
       </geometry>
     </collision>
   </link>
-    <link name="slider">
-    <inertial>
-      <origin xyz="0 0 0" />
-      <mass value="0.1"/>
-      <xacro:cuboid_inertia_def x="${cross_length}" y="${cross_length}" z="${cross_length}" mass="1"/>
-    </inertial>
-    <visual>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <box size="${cross_length} ${cross_length} ${cross_length}" />
-      </geometry>
-    </visual>
-    <collision>
-      <geometry>
-        <box size="${cross_length} ${cross_length} ${cross_length}" />
-      </geometry>
-    </collision>
-  </link>
-    <link name="support">
-    <inertial>
-      <origin xyz="0 0 ${-1*support_height/2}" />
-      <mass value="0.4"/>
-      <xacro:cuboid_inertia_def x="${cross_length}" y="${cross_length}" z="${support_height}" mass="4"/>
-    </inertial>
-    <visual>
-      <origin xyz="0 0 ${-1*support_height/2}" rpy="0 0 0" />
-      <geometry>
-        <box size="${cross_length} ${cross_length} ${support_height}" />
-      </geometry>
-    </visual>
-    <collision>
-      <origin xyz="0 0 ${-1*support_height/2}" rpy="0 0 0" />
-      <geometry>
-        <box size="${cross_length} ${cross_length} ${support_height}" />
-      </geometry>
-    </collision>
-  </link>
+
+
     <link name="beam">
     <inertial>
       <origin xyz="0 ${beam_height/2} 0" rpy="0 0 0"/>
