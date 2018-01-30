@@ -3,7 +3,7 @@
 """
 Joint space control using joint trajectory action
 """
-__author__ = "Rodrigo Muñoz"
+__author__ = "Cristopher Gomez"
 
 import copy
 from threading import Lock
@@ -12,6 +12,7 @@ import numpy as np
 import rospy
 import actionlib
 import math
+import rospkg
 # ROS Messages
 from sensor_msgs.msg import JointState
 from trajectory_msgs.msg import JointTrajectoryPoint
@@ -20,9 +21,11 @@ from std_msgs.msg import Float64
 from scipy.interpolate import UnivariateSpline, splev, splrep
 import matplotlib.pyplot as plt
 
+rp = rospkg.RosPack()
+path = rp.get_path('simple_biped')
 splines_dic = dict()
 for letter in ["A","B","C","D"]:
-    spline_file = np.load("spline_"+letter+".npz")
+    spline_file = np.load(path+"/src/simple_biped/"+"spline_"+letter+".npz")
     splines_dic[letter] = spline_file["arr_0"]
 
 def periodize(t,spline_parameters):
@@ -140,9 +143,10 @@ if __name__ == "__main__":
     tibia_angles = []
     ankle_angles = []
     phalange_angles = []
-    time= np.arange(0,100,0.009)
-    time_c= np.arange(1,101,0.009)
-    time_a= np.arange(0.5,100.5,0.009)
+    time_step = 0.009
+    time= np.arange(0,100,time_step)
+    time_c= np.arange(1,101,time_step)
+    time_a= np.arange(0.5,100.5,time_step)
     thigh_angles = periodize(time,splines_dic["A"])
     tibia_angles = periodize(time,splines_dic["B"])
     ankle_angles = periodize(time,splines_dic["C"])
@@ -189,6 +193,6 @@ if __name__ == "__main__":
             l_leg.set_joint_states([ankle_angles[i],phalange_angles[i],thigh_angles[i],tibia_angles[i]])
             r_leg.set_joint_states([ankle_angles_c[i],phalange_angles_c[i],thigh_angles_c[i],tibia_angles_c[i]])
             print "ok"
-            rospy.sleep(0.009)
+            rospy.sleep(time_step)
 
 

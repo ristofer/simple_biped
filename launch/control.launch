@@ -3,10 +3,10 @@
 
 
   <!-- Load joint controller configurations from YAML file to parameter server -->
-  <rosparam file="$(find simple_biped)/config/position_controller_config_test.yaml" command="load"/>
+  <rosparam file="$(find simple_biped)/config/effort_controller_config.yaml" command="load"/>
 
 
-   <node launch-prefix="xterm -T 'Gazebo controllers' -e" name="bender_controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" ns="/"
+   <node launch-prefix="xterm -T 'Gazebo controllers' -e" name="terop_controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" ns="/"
   args="joint_state_controller
         l_thigh_pitch_joint_position_controller
         l_tibia_joint_position_controller
