@@ -1,5 +1,5 @@
 <launch>
-  <!-- Bender model type -->
+
 
 
   <!-- Load joint controller configurations from YAML file to parameter server -->
