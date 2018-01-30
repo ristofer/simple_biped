@@ -15,7 +15,7 @@ l_thigh_pitch_joint_position_controller:
 l_tibia_joint_position_controller:
     type: effort_controllers/JointPositionController
     joint: l_tibia_joint
-    pid: {p: 100.0, i: 0.1, d: 10.0}
+    pid: {p: 46000.0, i: 0.1, d: 10.0}
 
 l_ankle_joint_position_controller:
     type: effort_controllers/JointPositionController
@@ -39,7 +39,7 @@ r_thigh_pitch_joint_position_controller:
 r_tibia_joint_position_controller:
     type: effort_controllers/JointPositionController
     joint: r_tibia_joint
-    pid: {p: 100.0, i: 0.1, d: 10.0}
+    pid: {p: 46000.0, i: 0.1, d: 10.0}
 
 r_ankle_joint_position_controller:
     type: effort_controllers/JointPositionController
