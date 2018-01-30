@@ -40,8 +40,8 @@
     <link name="head">
     <inertial>
       <origin xyz="${body_large/4} 0 0" />
-      <mass value="1.5"/>
-      <xacro:cuboid_inertia_def x="${body_large/2}" y="${body_width*0.8}" z="${body_height*0.6}" mass="1.5"/>
+      <mass value="1"/>
+      <xacro:cuboid_inertia_def x="${body_large/2}" y="${body_width*0.8}" z="${body_height*0.6}" mass="1"/>
     </inertial>
     <visual>
       <origin xyz="${body_large*0.5/2} 0 0" rpy="0 0 0" />
@@ -61,8 +61,8 @@
   <link name="tail">
     <inertial>
       <origin xyz="-0.200 0 0" />
-      <mass value="0.5"/>
-      <xacro:cuboid_inertia_def x="${body_large*2}" y="${body_width}" z="${body_height/2}" mass="0.5"/>
+      <mass value="0.4"/>
+      <xacro:cuboid_inertia_def x="${body_large*2}" y="${body_width}" z="${body_height/2}" mass="0.4"/>
     </inertial>
     <visual>
       <origin xyz="-0.250 0 0" rpy="0 ${-M_PI/2} 0" />
