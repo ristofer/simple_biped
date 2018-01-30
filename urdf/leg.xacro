@@ -85,7 +85,7 @@
   <link name="${side}_thigh" >
     <inertial>
       <origin xyz="0 0 ${-1*thigh_height/2}" />
-      <mass value="0.25"/>
+      <mass value="0.20"/>
       <xacro:cuboid_inertia_def x="${thigh_large}" y="${thigh_width}" z="${thigh_height}" mass="0.5"/>
     </inertial>
     <visual>
@@ -105,8 +105,8 @@
   <link name="${side}_tibia" >
     <inertial>
       <origin xyz="0 0 ${-1*tibia_height/2}" />
-      <mass value="0.2"/>
-      <xacro:cuboid_inertia_def x="${tibia_large}" y="${tibia_width}" z="${tibia_height}" mass="0.4"/>
+      <mass value="0.35"/>
+      <xacro:cuboid_inertia_def x="${tibia_large}" y="${tibia_width}" z="${tibia_height}" mass="0.35"/>
     </inertial>
     <visual>
       <origin xyz="0 0 ${-1*tibia_height/2}" rpy="0 0 0" />
@@ -125,8 +125,8 @@
   <link name="${side}_ankle" >
     <inertial>
       <origin xyz="0 0 ${-1*ankle_height/2}" />
-      <mass value="0.2"/>
-      <xacro:cuboid_inertia_def x="${ankle_large}" y="${ankle_width}" z="${ankle_height}" mass="0.2"/>
+      <mass value="0.05"/>
+      <xacro:cuboid_inertia_def x="${ankle_large}" y="${ankle_width}" z="${ankle_height}" mass="0.05"/>
     </inertial>
     <visual>
       <origin xyz="0 0 ${-1*ankle_height/2}" rpy="0 0 0" />
@@ -151,8 +151,8 @@
   <link name="${side}_phalange" >
     <inertial>
       <origin xyz="0 0 ${-1*phalange_height/2}" />
-      <mass value="0.15"/>
-      <xacro:cuboid_inertia_def x="${phalange_large}" y="${phalange_width}" z="${phalange_height}" mass="0.15"/>
+      <mass value="0.06"/>
+      <xacro:cuboid_inertia_def x="${phalange_large}" y="${phalange_width}" z="${phalange_height}" mass="0.06"/>
     </inertial>
     <visual>
       <origin xyz="0 0 ${-1*phalange_height/2}" rpy="0 0 0" />
